@@ -1,8 +1,7 @@
 package abramowicz.phonesshop.entities;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,8 +9,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user")
-@Getter
-@Setter
+@Data
 public class User {
 
     @Id
@@ -42,4 +40,8 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idRole", nullable = false)
     private Role role;
+
+    public User(){
+
+    }
 }
