@@ -38,7 +38,7 @@ public class User {
     private String phoneNumber;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idRole", nullable = false)
+    @JoinColumn(name = "idRoleFk", nullable = false)
     private Role role;
 
     public User(){

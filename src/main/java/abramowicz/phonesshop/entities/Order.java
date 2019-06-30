@@ -30,7 +30,7 @@ public class Order {
     private BigDecimal totalPrice;
 
     @ManyToOne
-    @JoinColumn(name = "idUser")
+    @JoinColumn(name = "idUserFk")
     private User user;
 
     public Order(){
