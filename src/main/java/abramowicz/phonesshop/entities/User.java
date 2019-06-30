@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user")
@@ -20,17 +21,25 @@ public class User {
 
     @Column(name = "name")
     @NotNull
+    @Size(max = 45)
     private String name;
 
     @Column(name = "surname")
     @NotNull
+    @Size(max = 45)
     private String surname;
 
     @Column(name = "email")
     @NotNull
+    @Size(max = 100)
     private String email;
 
     @Column(name = "phoneNumber")
     @NotNull
+    @Size(max = 9)
     private String phoneNumber;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "idRole", nullable = false)
+    private Role role;
 }
