@@ -30,10 +30,14 @@ public class OrderItemList {
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "idOrderFk")
+    @JoinColumn(name = "idOrder")
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "idProductFk")
+    @JoinColumn(name = "idProduct")
     private Product product;
+
+    public OrderItemList() {
+        //for JPA
+    }
 }

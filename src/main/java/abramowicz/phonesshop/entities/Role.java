@@ -1,6 +1,5 @@
 package abramowicz.phonesshop.entities;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,4 +23,8 @@ public class Role {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "role")
     private User user;
+
+    public Role() {
+        //for JPA
+    }
 }

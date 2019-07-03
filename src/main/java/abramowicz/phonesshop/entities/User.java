@@ -38,10 +38,10 @@ public class User {
     private String phoneNumber;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idRoleFk", nullable = false)
+    @JoinColumn(name = "idRole", nullable = false)
     private Role role;
 
     public User(){
-
+        //for JPA
     }
 }

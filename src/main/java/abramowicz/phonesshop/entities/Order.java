@@ -30,10 +30,10 @@ public class Order {
     private BigDecimal totalPrice;
 
     @ManyToOne
-    @JoinColumn(name = "idUserFk")
+    @JoinColumn(name = "idUser")
     private User user;
 
     public Order(){
-
+        //for JPA
     }
 }

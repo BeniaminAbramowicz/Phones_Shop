@@ -35,6 +35,6 @@ public class Product {
     private String description;
 
     public Product(){
-
+        //for JPA
     }
 }

@@ -11,6 +11,7 @@
 	<groupId>abramowicz</groupId>
 	<artifactId>phonesshop</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>Phone Shop</name>
 	<description>Online shop with phones and accessories</description>
 
@@ -60,12 +61,6 @@
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 			<version>2.1.5.RELEASE</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>

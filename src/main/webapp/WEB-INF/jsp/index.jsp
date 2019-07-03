@@ -5,14 +5,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%@include file="/webapp/include/header.app" %>
+    <%@include file="/WEB-INF/include/header.app" %>
     <title>Home Page</title>
 </head>
 <body>
 <wrapper class="d-flex flex-column">
-    <%@include file="/webapp/include/navbar.app" %>
+    <%@include file="/WEB-INF/include/navbar.app" %>
     Home Page
-    <%@include file="/WEB-INF/incl/footer.app" %>
+    <%@include file="/WEB-INF/include/footer.app" %>
 </wrapper>
 </body>
 </html>
