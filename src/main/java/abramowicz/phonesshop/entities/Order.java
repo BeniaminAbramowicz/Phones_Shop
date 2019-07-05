@@ -17,20 +17,20 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idOrder")
-    private int idOrder;
+    @Column(name = "order_id")
+    private int orderId;
 
     @Column(name = "status")
     @NotNull
     @Size(max = 45)
     private String status;
 
-    @Column(name = "totalPrice")
+    @Column(name = "total_price")
     @NotNull
     private BigDecimal totalPrice;
 
     @ManyToOne
-    @JoinColumn(name = "idUser")
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Order(){

@@ -15,8 +15,8 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idProduct")
-    private int idProduct;
+    @Column(name = "product_id")
+    private int productId;
 
     @Column(name = "name")
     @NotNull
@@ -26,9 +26,9 @@ public class Product {
     @NotNull
     private BigDecimal price;
 
-    @Column(name = "numberOfItems")
+    @Column(name = "items_number")
     @NotNull
-    private int numberOfItems;
+    private int itemsNumber;
 
     @Column(name = "description")
     @NotNull

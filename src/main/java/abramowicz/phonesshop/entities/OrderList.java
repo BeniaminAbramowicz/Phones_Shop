@@ -6,20 +6,19 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "orderitemlist")
+@Table(name = "order_list")
 @Data
 @Builder
 @AllArgsConstructor
-public class OrderItemList {
+public class OrderList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idOrderItemList")
-    private int idOrderItemList;
+    @Column(name = "order_list_id")
+    private int orderListId;
 
     @Column(name = "quantity")
     @NotNull
@@ -30,14 +29,14 @@ public class OrderItemList {
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "idOrder")
+    @JoinColumn(name = "order_id")
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "idProduct")
+    @JoinColumn(name = "product_id")
     private Product product;
 
-    public OrderItemList() {
+    public OrderList() {
         //for JPA
     }
 }

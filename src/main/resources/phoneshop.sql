@@ -32,7 +32,7 @@ CREATE TABLE `order` (
   `order_id` int(11) NOT NULL,
   `status` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` int(11) NOT NULL,
-  `totalPrice` float NOT NULL
+  `total_price` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------

@@ -14,8 +14,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idUser")
-    private int idUser;
+    @Column(name = "user_id")
+    private int userId;
 
     @Column(name = "name")
     @NotNull
@@ -32,13 +32,13 @@ public class User {
     @Size(max = 100)
     private String email;
 
-    @Column(name = "phoneNumber")
+    @Column(name = "phone_number")
     @NotNull
     @Size(max = 9)
     private String phoneNumber;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idRole", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "role_id")
     private Role role;
 
     public User(){

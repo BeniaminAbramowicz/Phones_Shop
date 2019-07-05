@@ -14,15 +14,12 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idRole")
-    private int idRole;
+    @Column(name = "role_id")
+    private int roleId;
 
     @Column(name = "name")
     @NotNull
     private String name;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "role")
-    private User user;
 
     public Role() {
         //for JPA
