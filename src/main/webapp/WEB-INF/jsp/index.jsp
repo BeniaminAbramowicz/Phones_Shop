@@ -10,6 +10,9 @@
 </head>
 <body>
 <wrapper class="d-flex flex-column">
+    <div class="container">
+        <img src="/resources/img/logo.jpg" width="100%" height="300">
+    </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
     Home Page
     <%@include file="/WEB-INF/include/footer.app" %>
