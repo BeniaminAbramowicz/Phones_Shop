@@ -1,5 +1,8 @@
-<nav class="navbar center navbar-expand-lg navbar-light bg-light">
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+  <button class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapse_target">
     <ul class="navbar-inner navbar-nav">
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/index">Home Page <span class="sr-only"></span></a>

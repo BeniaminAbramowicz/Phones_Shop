@@ -20,14 +20,14 @@
         <tr>
         <td>
             <div class="card w-100 flex-row text-center">
-                <div class="card-header border-0">
-                    <img src="/resources/img/samsungs3.jpg">
+                <div class="col-lg-6">
+                    <img src="${product.picture}"/>
                 </div>
-                <div class="card-block w-75">
-                    <h1 class="card-title">${product.name}</h4>
-                    <p class="card-text">Price: ${product.price}</p>
-                    <p class="card-text">Quantity: ${product.itemsNumber}</p>
-                    <p class="card-text">Specification:<br>${product.description}</p>
+                <div class="col-lg-4">
+                    <h1 class="card-title">${product.name}</h1>
+                    <h2 class="card-text">Price: ${product.price} PLN</h2>
+                    <h4 class="card-text">Quantity: ${product.itemsNumber}</h4>
+                    <h5 class="card-text">Specification:<p>${product.description}</p></h5>
                 </div>
             </div>
         </td>

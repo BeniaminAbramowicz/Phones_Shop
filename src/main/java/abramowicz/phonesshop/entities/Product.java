@@ -34,6 +34,9 @@ public class Product {
     @NotNull
     private String description;
 
+    @Column(name = "picutre")
+    private String picture;
+
     public Product(){
         //for JPA
     }
