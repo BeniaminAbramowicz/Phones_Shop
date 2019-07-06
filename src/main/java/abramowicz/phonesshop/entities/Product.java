@@ -34,7 +34,7 @@ public class Product {
     @NotNull
     private String description;
 
-    @Column(name = "picutre")
+    @Column(name = "picture")
     private String picture;
 
     public Product(){

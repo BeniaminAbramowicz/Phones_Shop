@@ -7,21 +7,16 @@
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/index">Home Page <span class="sr-only"></span></a>
       </li>
-      <li class="nav-item">
-              <a class="nav-link" href="${pageContext.request.contextPath}/products">Products <span class="sr-only"></span></a>
-      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Phones
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Samsung</a>
-          <a class="dropdown-item" href="#">Xiaomi</a>
-          <a class="dropdown-item" href="#">LG</a>
-          <a class="dropdown-item" href="#">Apple</a>
-          <a class="dropdown-item" href="#">One Plus</a>
-          <a class="dropdown-item" href="#">Nokia</a>
-          <a class="dropdown-item" href="#">MyPhone</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/samsung">Samsung</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/xiaomi">Xiaomi</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/lg">LG</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/apple">Apple</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/oneplus">One Plus</a>
         </div>
       </li>
       <li class="nav-item">

@@ -6,5 +6,9 @@ import java.util.List;
 
 public interface ProductService {
 
-    List<Product> displayProductsList();
+    List<Product> displaySamsungPhones();
+    List<Product> displayXiaomiPhones();
+    List<Product> displayLgPhones();
+    List<Product> displayApplePhones();
+    List<Product> displayOneplusPhones();
 }
