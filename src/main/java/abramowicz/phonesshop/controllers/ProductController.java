@@ -50,4 +50,11 @@ public class ProductController {
         model.addAttribute("productList", productList);
         return "oneplus";
     }
+
+    @GetMapping(value = "/accessories")
+    public String displayAccessories(Model model){
+        List<Product> productList = productService.displayAccessories();
+        model.addAttribute("productList", productList);
+        return "accessories";
+    }
 }

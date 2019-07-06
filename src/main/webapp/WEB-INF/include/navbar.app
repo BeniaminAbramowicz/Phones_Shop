@@ -20,7 +20,7 @@
         </div>
       </li>
       <li class="nav-item">
-         <a class="nav-link" href="#">Accessories</a>
+         <a class="nav-link" href="${pageContext.request.contextPath}/accessories">Accessories</a>
       </li>
       <li class="nav-item">
          <a class="nav-link" href="#">Login</a>

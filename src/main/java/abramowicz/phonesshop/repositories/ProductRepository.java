@@ -25,4 +25,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "SELECT * FROM product p WHERE p.name LIKE 'OnePlus%' ", nativeQuery = true)
     List<Product> displayOneplusPhones();
 
+    @Query(value = "SELECT * FROM product p WHERE p.is_accessory = 1", nativeQuery = true)
+    List<Product> displayAccessories();
+
 }

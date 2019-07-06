@@ -11,4 +11,5 @@ public interface ProductService {
     List<Product> displayLgPhones();
     List<Product> displayApplePhones();
     List<Product> displayOneplusPhones();
+    List<Product> displayAccessories();
 }

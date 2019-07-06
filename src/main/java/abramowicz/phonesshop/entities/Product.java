@@ -1,5 +1,6 @@
 package abramowicz.phonesshop.entities;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.*;
 
 import javax.persistence.*;
@@ -36,6 +37,9 @@ public class Product {
 
     @Column(name = "picture")
     private String picture;
+
+    @Column(name = "is_accessory")
+    private Boolean isAccessory;
 
     public Product(){
         //for JPA

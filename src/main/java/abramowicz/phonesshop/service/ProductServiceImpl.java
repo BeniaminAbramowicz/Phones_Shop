@@ -39,4 +39,9 @@ public class ProductServiceImpl implements ProductService{
     public List<Product> displayOneplusPhones() {
         return productRepository.displayOneplusPhones();
     }
+
+    @Override
+    public List<Product> displayAccessories() {
+        return productRepository.displayAccessories();
+    }
 }
