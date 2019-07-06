@@ -19,6 +19,7 @@ public class ProductController {
     @GetMapping(value = "/products")
     public String displayProducts(Model model){
         List<Product> productList = productService.displayProductsList();
+        model.addAttribute("productList", productList);
         return "products";
     }
 
