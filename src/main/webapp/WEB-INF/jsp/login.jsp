@@ -14,18 +14,27 @@
         <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
-    <form>
+    <main class="container-fluid py-3 flex-fill">
+    <div class="container">
+    <div class="col-md-8 offset-2">
+    <div class="card border-black rounded-0">
+    <div class="card-body">
+    <form class="form-signin" action="/login" method="POST">
       <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <label for="inputEmail">Email address</label>
+        <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <label for="inputPassword">Password</label>
+        <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    </div>
+    </div>
+    </div>
+    </div>
+    </main>
     <%@include file="/WEB-INF/include/footer.app" %>
 </wrapper>
 </body>
