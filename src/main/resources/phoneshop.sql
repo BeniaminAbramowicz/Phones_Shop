@@ -60,8 +60,23 @@ CREATE TABLE `product` (
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `price` double NOT NULL,
   `items_number` int(11) NOT NULL,
-  `description` varchar(500) COLLATE utf8_unicode_ci NOT NULL
+  `description` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `picture` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `is_accessory` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Zrzut danych tabeli `product`
+--
+
+INSERT INTO `product` (`product_id`, `name`, `price`, `items_number`, `description`, `picture`, `is_accessory`) VALUES
+(2, 'Samsung Galaxy S3', 499.99, 5, '<p>- CPU: 1.4 GHz</p><p>- Internal Memory: 16 GB</p><p>- RAM memory: 1 GB</p>', 'https://i.imgur.com/n8JWrnM.jpg', 0),
+(3, 'Xiaomi Mi4', 399.99, 3, '<p>- CPU: 2.5 GHz 4 cores</p><p>- Internal Memory: 16 GB</p><p>- RAM memory: 2 GB</p>', 'https://i.imgur.com/2Wir6Vq.jpg', 0),
+(4, 'LG G2', 299.99, 1, '<p>- CPU: 2.26 GHz 4 cores</p><p>- Internal Memory: 16 GB</p><p>- RAM memory: 2 GB</p>', 'https://i.imgur.com/lvxNmuY.jpg', 0),
+(5, 'iPhone 5S', 799.99, 10, '<p>- CPU: 1.3 GHz</p><p>- Internal Memory: 16 GB</p><p>- RAM memory: 1 GB</p>', 'https://i.imgur.com/WTzFEnx.jpg', 0),
+(6, 'OnePlus 5', 1899.99, 3, '<p>- CPU: 2.45 GHz 8 cores</p><p>- Internal Memory: 128 GB</p><p>- RAM memory: 8 GB</p>', 'https://i.imgur.com/tbYHBzj.jpg', 0),
+(7, 'Mercury Flip Case for iPhone 5S', 30, 20, '<p>Magnetic flip cover for iPhone 5S</p>', 'https://i.imgur.com/GNkiZOY.jpg', 1);
+
 
 -- --------------------------------------------------------
 
@@ -153,7 +168,7 @@ ALTER TABLE `order_list`
 -- AUTO_INCREMENT dla tabeli `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT dla tabeli `role`
