@@ -37,6 +37,10 @@ public class User {
     @Size(max = 9)
     private String phoneNumber;
 
+    @Column(name = "password")
+    @NotNull
+    private String password;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;

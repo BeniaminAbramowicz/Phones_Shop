@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 05 Lip 2019, 16:44
+-- Czas generowania: 07 Lip 2019, 16:27
 -- Wersja serwera: 10.1.28-MariaDB
 -- Wersja PHP: 7.1.11
 
@@ -77,7 +77,6 @@ INSERT INTO `product` (`product_id`, `name`, `price`, `items_number`, `descripti
 (6, 'OnePlus 5', 1899.99, 3, '<p>- CPU: 2.45 GHz 8 cores</p><p>- Internal Memory: 128 GB</p><p>- RAM memory: 8 GB</p>', 'https://i.imgur.com/tbYHBzj.jpg', 0),
 (7, 'Mercury Flip Case for iPhone 5S', 30, 20, '<p>Magnetic flip cover for iPhone 5S</p>', 'https://i.imgur.com/GNkiZOY.jpg', 1);
 
-
 -- --------------------------------------------------------
 
 --
@@ -88,6 +87,14 @@ CREATE TABLE `role` (
   `role_id` int(11) NOT NULL,
   `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Zrzut danych tabeli `role`
+--
+
+INSERT INTO `role` (`role_id`, `name`) VALUES
+(1, 'admin'),
+(2, 'user');
 
 -- --------------------------------------------------------
 
@@ -101,8 +108,17 @@ CREATE TABLE `user` (
   `surname` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `phone_number` varchar(9) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `role_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Zrzut danych tabeli `user`
+--
+
+INSERT INTO `user` (`user_id`, `name`, `surname`, `email`, `phone_number`, `password`, `role_id`) VALUES
+(1, 'Beniamin', 'Abramowicz', 'beniamin.abramowicz@gmail.com', '123456789', 'abc123', 1),
+(2, 'Jan', 'Kowalski', 'jan.kowalski@gmail.com', '987654321', 'xyz789', 2);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -174,13 +190,13 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT dla tabeli `role`
 --
 ALTER TABLE `role`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT dla tabeli `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Ograniczenia dla zrzutów tabel
