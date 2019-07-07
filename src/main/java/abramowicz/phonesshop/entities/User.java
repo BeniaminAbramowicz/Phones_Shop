@@ -41,6 +41,10 @@ public class User {
     @NotNull
     private String password;
 
+    @Column(name = "active")
+    @NotNull
+    private int active;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
