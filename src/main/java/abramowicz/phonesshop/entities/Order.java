@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "role")
+@Table(name = "order")
 @Data
 @Builder
 @AllArgsConstructor
