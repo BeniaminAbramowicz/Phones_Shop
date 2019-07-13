@@ -6,7 +6,9 @@ import abramowicz.phonesshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -56,5 +58,18 @@ public class ProductController {
         List<Product> productList = productService.displayAccessories();
         model.addAttribute("productList", productList);
         return "accessories";
+    }
+
+    @GetMapping(value = "/addproducts")
+    public String newProduct(Model model){
+        Product product = new Product();
+        model.addAttribute("product", product);
+        return "products";
+    }
+
+    @PostMapping(value = "/addproduct")
+    public String addProduct(Model model, Product product, BindingResult result){
+        productService.saveProduct(product);
+        return "addproducts";
     }
 }

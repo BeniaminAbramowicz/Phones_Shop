@@ -44,4 +44,9 @@ public class ProductServiceImpl implements ProductService{
     public List<Product> displayAccessories() {
         return productRepository.displayAccessories();
     }
+
+    @Override
+    public void saveProduct(Product product) {
+        productRepository.save(product);
+    }
 }
