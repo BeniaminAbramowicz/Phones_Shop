@@ -27,7 +27,7 @@
          <a class="nav-link" href="${pageContext.request.contextPath}/login">Login</a>
       </li>
       </sec:authorize>
-      <sec:authorize access="hasRole('admin')">
+      <sec:authorize access="hasRole('ROLE_ADMIN')">
         <li class="nav-item">
           <a class="nav-link" href="${pageContext.request.contextPath}/addproducts">Add Product</a>
         </li>

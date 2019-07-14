@@ -29,18 +29,19 @@
         <input type="text" name="price" class="form-control" id="price" placeholder="Price" required>
       </div>
       <div class="form-group">
-         <label for="items_number">Items number</label>
-         <input type="text" name="items_number" class="form-control" id="items_number" placeholder="Items number" required>
+         <label for="itemsNumber">Items number</label>
+         <input type="text" name="itemsNumber" class="form-control" id="itemsNumber" placeholder="Items number" required>
       </div>
       <div class="form-group">
          <label for="description">Description</label>
-         <input type="text" name="descrpition" class="form-control" id="description" placeholder="Description" required>
+         <input type="text" name="description" class="form-control" id="description" placeholder="Description" required>
       </div>
       <div class="form-group form-check-inline">
-        <label for="is_accessory">Is accessory</label>
-        <input type="radio" name="is_accessory" value="true" class="form-check-input" autocomplete="off" required>Yes
+        <label for="isAccessory">Is accessory</label>
         &nbsp
-        <input type="radio" name="is_accessory" value="false" class="form-check-input" autocomplete="off" required>No
+        <input type="radio" name="isAccessory" value="true" class="form-check-input" autocomplete="off" required>Yes
+        &nbsp
+        <input type="radio" name="isAccessory" value="false" class="form-check-input" autocomplete="off" required>No
       </div>
       <div class="form-group">
         <label for="picture">Picture link</label>

@@ -63,8 +63,8 @@ public class ProductController {
     @GetMapping(value = "/addproducts")
     public String newProduct(Model model){
         Product product = new Product();
-        model.addAttribute("product", product);
-        return "products";
+        model.addAttribute("addproducts", product);
+        return "addproducts";
     }
 
     @PostMapping(value = "/addproduct")

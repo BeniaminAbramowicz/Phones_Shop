@@ -40,6 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/index").permitAll()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/addproducts").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/addproduct").access("hasRole('ROLE_ADMIN')")
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage("/login")
