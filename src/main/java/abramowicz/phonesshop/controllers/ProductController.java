@@ -18,6 +18,13 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
+    @GetMapping(value = "/allproducts")
+    public String displayAllProducts(Model model){
+        List<Product> productList = productService.displayAllProducts();
+        model.addAttribute("productList", productList);
+        return "allproducts";
+    }
+
     @GetMapping(value = "/samsung")
     public String displaySamsung(Model model){
         List<Product> productList = productService.displaySamsungPhones();

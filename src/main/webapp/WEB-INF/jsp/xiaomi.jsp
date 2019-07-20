@@ -27,7 +27,7 @@
                     <h1 class="card-title">${product.name}</h1>
                     <h2 class="card-text">Price: ${product.price} PLN</h2>
                     <h4 class="card-text">Quantity: ${product.itemsNumber}</h4>
-                    <h5 class="card-text">Specification:<p>${product.description}</p></h5>
+                    <h5 class="card-text">About product:<p>${product.description}</p></h5>
                 </div>
             </div>
         </td>
