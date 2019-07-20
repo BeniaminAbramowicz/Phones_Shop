@@ -7,6 +7,9 @@
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/index">Home Page <span class="sr-only"></span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="${pageContext.request.contextPath}/allproducts">All Products</a>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Phones

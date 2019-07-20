@@ -10,6 +10,9 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
+    @Query(value = "SELECT * FROM product ORDER BY name", nativeQuery = true)
+    List<Product> displayAllProducts();
+
     @Query(value = "SELECT * FROM product p WHERE p.name LIKE 'Samsung%' ", nativeQuery = true)
     List<Product> displaySamsungPhones();
 

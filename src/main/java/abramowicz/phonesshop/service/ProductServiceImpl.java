@@ -16,6 +16,11 @@ public class ProductServiceImpl implements ProductService{
     private ProductRepository productRepository;
 
     @Override
+    public List<Product> displayAllProducts() {
+        return productRepository.displayAllProducts();
+    }
+
+    @Override
     public List<Product> displaySamsungPhones(){
         return productRepository.displaySamsungPhones();
     }
