@@ -2,9 +2,9 @@ package abramowicz.phonesshop.controllers;
 
 
 import abramowicz.phonesshop.entities.Product;
-import abramowicz.phonesshop.service.AdminService;
 import abramowicz.phonesshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +21,6 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
-
-    @Autowired
-    AdminService adminService;
 
     @GetMapping(value = "/allproducts")
     public String displayAllProducts(Model model){
@@ -87,10 +84,9 @@ public class ProductController {
         return "addproducts";
     }
 
-    @DeleteMapping(value = "allproducts/{id}")
-    @Secured(value = {"ROLE_ADMIN"})
-    public String deleteProduct(Product product, @PathVariable("id") int id){
-        adminService.deleteProduct(id);
+    @PostMapping(value = "/allproducts/{productId}")
+    public String deleteProduct(Model model, Product product, @Param("productId") int productId){
+        productService.deleteProduct(productId);
         return "allproducts";
     }
 

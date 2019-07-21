@@ -14,4 +14,5 @@ public interface ProductService {
     List<Product> displayOneplusPhones();
     List<Product> displayAccessories();
     void saveProduct(Product product);
+    void deleteProduct(int productId);
 }

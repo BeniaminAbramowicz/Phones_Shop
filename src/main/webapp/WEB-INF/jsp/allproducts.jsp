@@ -28,6 +28,10 @@
                     <h2 class="card-text">Price: ${product.price} PLN</h2>
                     <h4 class="card-text">Quantity: ${product.itemsNumber}</h4>
                     <h5 class="card-text">About product:<p>${product.description}</p></h5>
+                    <form method="post" action="/allproducts/${product.productId}" modelAttribute="product" method="POST">
+                    <input type="hidden" name="productId" value="${product.productId}">
+                    <button type="submit" class="btn btn-danger"> Delete</button>
+                    </form>
                 </div>
             </div>
         </td>

@@ -2,7 +2,9 @@ package abramowicz.phonesshop.repositories;
 
 import abramowicz.phonesshop.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,5 +32,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query(value = "SELECT * FROM product p WHERE p.is_accessory = 1", nativeQuery = true)
     List<Product> displayAccessories();
+
+    @Modifying
+    @Query(value = "DELETE FROM product WHERE product_id=:productId", nativeQuery = true)
+    void deleteProduct(@Param("productId") int productId);
 
 }
