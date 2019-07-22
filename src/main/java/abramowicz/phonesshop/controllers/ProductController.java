@@ -85,9 +85,9 @@ public class ProductController {
     }
 
     @PostMapping(value = "/allproducts/{productId}")
-    public String deleteProduct(Model model, Product product, @Param("productId") int productId){
+    public String deleteProduct(@Param("productId") int productId){
         productService.deleteProduct(productId);
-        return "allproducts";
+        return "redirect:/allproducts";
     }
 
 }
