@@ -40,7 +40,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Modifying
     @Query(value = "UPDATE product p SET p.name=:name, p.description=:description, p.price=:price, p.items_number=:itemsNumber, p.picture=:picture, p.is_accessory=isAccessory WHERE p.product_id=:productId", nativeQuery = true)
-    void editProduct(@Param("name") String name, @Param("description") String description, @Param("price") BigDecimal price, @Param("itemsNumber") int itemsNumber, @Param("picture") String picture, @Param("isAccessory") Boolean isAccessory);
+    void editProduct(@Param("name") String name, @Param("description") String description, @Param("price") BigDecimal price, @Param("itemsNumber") int itemsNumber, @Param("picture") String picture, @Param("isAccessory") Boolean isAccessory, @Param("productId") int productId);
 
 
 }

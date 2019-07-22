@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service("productService")
@@ -58,5 +59,10 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public void deleteProduct(int productId) {
         productRepository.deleteProduct(productId);
+    }
+
+    @Override
+    public void editProduct(String name, String description, BigDecimal price, int itemsNumber, String picture, Boolean isAccessory, int productId) {
+        productRepository.editProduct(name, description, price, itemsNumber, picture, isAccessory, productId);
     }
 }
