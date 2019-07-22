@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 07 Lip 2019, 16:27
--- Wersja serwera: 10.1.28-MariaDB
--- Wersja PHP: 7.1.11
+-- Czas generowania: 22 Lip 2019, 16:59
+-- Wersja serwera: 10.3.16-MariaDB
+-- Wersja PHP: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -43,11 +43,11 @@ CREATE TABLE `order` (
 
 CREATE TABLE `order_list` (
   `order_list_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `quantity` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `price` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `price` decimal(19,2) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -57,25 +57,28 @@ CREATE TABLE `order_list` (
 
 CREATE TABLE `product` (
   `product_id` int(11) NOT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `price` double NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `is_accessory` bit(1) DEFAULT NULL,
   `items_number` int(11) NOT NULL,
-  `description` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
-  `picture` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `is_accessory` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `picture` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `price` decimal(19,2) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Zrzut danych tabeli `product`
 --
 
-INSERT INTO `product` (`product_id`, `name`, `price`, `items_number`, `description`, `picture`, `is_accessory`) VALUES
-(2, 'Samsung Galaxy S3', 499.99, 5, '<p>- CPU: 1.4 GHz</p><p>- Internal Memory: 16 GB</p><p>- RAM memory: 1 GB</p>', 'https://i.imgur.com/n8JWrnM.jpg', 0),
-(3, 'Xiaomi Mi4', 399.99, 3, '<p>- CPU: 2.5 GHz 4 cores</p><p>- Internal Memory: 16 GB</p><p>- RAM memory: 2 GB</p>', 'https://i.imgur.com/2Wir6Vq.jpg', 0),
-(4, 'LG G2', 299.99, 1, '<p>- CPU: 2.26 GHz 4 cores</p><p>- Internal Memory: 16 GB</p><p>- RAM memory: 2 GB</p>', 'https://i.imgur.com/lvxNmuY.jpg', 0),
-(5, 'iPhone 5S', 799.99, 10, '<p>- CPU: 1.3 GHz</p><p>- Internal Memory: 16 GB</p><p>- RAM memory: 1 GB</p>', 'https://i.imgur.com/WTzFEnx.jpg', 0),
-(6, 'OnePlus 5', 1899.99, 3, '<p>- CPU: 2.45 GHz 8 cores</p><p>- Internal Memory: 128 GB</p><p>- RAM memory: 8 GB</p>', 'https://i.imgur.com/tbYHBzj.jpg', 0),
-(7, 'Mercury Flip Case for iPhone 5S', 30, 20, '<p>Magnetic flip cover for iPhone 5S</p>', 'https://i.imgur.com/GNkiZOY.jpg', 1);
+INSERT INTO `product` (`product_id`, `description`, `is_accessory`, `items_number`, `name`, `picture`, `price`) VALUES
+(2, '<p>- CPU: 1.4 GHz</p><p>- Internal Memory: 16 GB</p><p>- RAM memory: 1 GB</p>', b'0', 5, 'Samsung Galaxy S3', 'https://i.imgur.com/n8JWrnM.jpg', '499.99'),
+(3, '<p>- CPU: 2.5 GHz 4 cores</p><p>- Internal Memory: 16 GB</p><p>- RAM memory: 2 GB</p>', b'0', 3, 'Xiaomi Mi4', 'https://i.imgur.com/2Wir6Vq.jpg', '399.99'),
+(4, '<p>- CPU: 2.26 GHz 4 cores</p><p>- Internal Memory: 16 GB</p><p>- RAM memory: 2 GB</p>', b'0', 1, 'LG G2', 'https://i.imgur.com/lvxNmuY.jpg', '299.99'),
+(5, '<p>- CPU: 1.3 GHz</p><p>- Internal Memory: 16 GB</p><p>- RAM memory: 1 GB</p>', b'0', 10, 'iPhone 5S', 'https://i.imgur.com/WTzFEnx.jpg', '799.99'),
+(6, '<p>- CPU: 2.45 GHz 8 cores</p><p>- Internal Memory: 128 GB</p><p>- RAM memory: 8 GB</p>', b'0', 3, 'OnePlus 5', 'https://i.imgur.com/tbYHBzj.jpg', '1899.99'),
+(7, '<p>Magnetic flip cover for iPhone 5S</p>', b'1', 20, 'Mercury Flip Case for iPhone 5S', 'https://i.imgur.com/GNkiZOY.jpg', '30.00'),
+(9, '<p>Transparent back case with pink ring on the edges for iPhone 5/5S/5C</p>', b'1', 5, 'Jelly Case Mercury Ring 2 for iPhone 5', 'https://i.imgur.com/i23fry0.jpg', '25.00'),
+(18, '<p>- CPU: 1.4 GHz</p><p>- Internal Memory: 8 GB</p><p>- RAM memory: 1 GB</p>', b'0', 3, 'Samsung Galaxy S3C', 'https://i.imgur.com/n8JWrnM.jpg', '439.99'),
+(17, '<p>- CPU: 1.4 GHz</p><p>- Internal Memory: 32 GB</p><p>- RAM memory: 1 GB</p>', b'0', 5, 'Samsung Galaxy S3E', 'https://i.imgur.com/n8JWrnM.jpg', '513.99');
 
 -- --------------------------------------------------------
 
@@ -85,16 +88,16 @@ INSERT INTO `product` (`product_id`, `name`, `price`, `items_number`, `descripti
 
 CREATE TABLE `role` (
   `role_id` int(11) NOT NULL,
-  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Zrzut danych tabeli `role`
 --
 
 INSERT INTO `role` (`role_id`, `name`) VALUES
-(1, 'admin'),
-(2, 'user');
+(1, 'ROLE_ADMIN'),
+(2, 'ROLE_USER');
 
 -- --------------------------------------------------------
 
@@ -104,28 +107,47 @@ INSERT INTO `role` (`role_id`, `name`) VALUES
 
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
-  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `surname` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `active` int(11) NOT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `phone_number` varchar(9) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `role_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `surname` varchar(45) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Zrzut danych tabeli `user`
 --
 
-INSERT INTO `user` (`user_id`, `name`, `surname`, `email`, `phone_number`, `password`, `role_id`) VALUES
-(1, 'Beniamin', 'Abramowicz', 'beniamin.abramowicz@gmail.com', '123456789', 'abc123', 1),
-(2, 'Jan', 'Kowalski', 'jan.kowalski@gmail.com', '987654321', 'xyz789', 2);
+INSERT INTO `user` (`user_id`, `active`, `email`, `name`, `password`, `phone_number`, `surname`) VALUES
+(1, 1, 'beniamin.abramowicz@gmail.com', 'Beniamin', '$2a$10$guVtQb4bka8UvdeZ32TzN.z87TtQe5cy6o.eveMiP7Q1gBnIsg2Ge', '123456789', 'Abramowicz'),
+(2, 1, 'jan.kowalski@gmail.com', 'Jan', '$2a$10$guVtQb4bka8UvdeZ32TzN.z87TtQe5cy6o.eveMiP7Q1gBnIsg2Ge', '987654321', 'Kowalski');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `user_role`
+--
+
+CREATE TABLE `user_role` (
+  `user_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Zrzut danych tabeli `user_role`
+--
+
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
+(1, 1),
+(2, 2);
 
 --
 -- Indeksy dla zrzutów tabel
 --
 
 --
--- Indexes for table `order`
+-- Indeksy dla tabeli `order`
 --
 ALTER TABLE `order`
   ADD PRIMARY KEY (`order_id`),
@@ -133,36 +155,37 @@ ALTER TABLE `order`
   ADD KEY `fk_UserProduct_User1_idx` (`user_id`);
 
 --
--- Indexes for table `order_list`
+-- Indeksy dla tabeli `order_list`
 --
 ALTER TABLE `order_list`
   ADD PRIMARY KEY (`order_list_id`),
-  ADD UNIQUE KEY `idOrderItemList_UNIQUE` (`order_list_id`),
   ADD KEY `fk_Order_OrderItemList_idx` (`order_id`),
   ADD KEY `fk_Product_OrderItemList_idx` (`product_id`);
 
 --
--- Indexes for table `product`
+-- Indeksy dla tabeli `product`
 --
 ALTER TABLE `product`
-  ADD PRIMARY KEY (`product_id`),
-  ADD UNIQUE KEY `idProduct_UNIQUE` (`product_id`);
+  ADD PRIMARY KEY (`product_id`);
 
 --
--- Indexes for table `role`
+-- Indeksy dla tabeli `role`
 --
 ALTER TABLE `role`
-  ADD PRIMARY KEY (`role_id`),
-  ADD UNIQUE KEY `role_id_UNIQUE` (`role_id`);
+  ADD PRIMARY KEY (`role_id`);
 
 --
--- Indexes for table `user`
+-- Indeksy dla tabeli `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `idUser_UNIQUE` (`user_id`),
-  ADD UNIQUE KEY `email_UNIQUE` (`email`),
-  ADD KEY `fk_User_Role1_idx` (`role_id`);
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indeksy dla tabeli `user_role`
+--
+ALTER TABLE `user_role`
+  ADD PRIMARY KEY (`user_id`,`role_id`),
+  ADD KEY `FKa68196081fvovjhkek5m97n3y` (`role_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -184,42 +207,19 @@ ALTER TABLE `order_list`
 -- AUTO_INCREMENT dla tabeli `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT dla tabeli `role`
 --
 ALTER TABLE `role`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `user`
 --
 ALTER TABLE `user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- Ograniczenia dla zrzutów tabel
---
-
---
--- Ograniczenia dla tabeli `order`
---
-ALTER TABLE `order`
-  ADD CONSTRAINT `fk_User_Order` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ograniczenia dla tabeli `order_list`
---
-ALTER TABLE `order_list`
-  ADD CONSTRAINT `fk_Order_Order_List` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Product_Order_List` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ograniczenia dla tabeli `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `fk_User_Role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
