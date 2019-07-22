@@ -18,8 +18,12 @@ import java.util.List;
 @Controller
 public class ProductController {
 
+    private final ProductService productService;
+
     @Autowired
-    ProductService productService;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping(value = "/allproducts")
     public String displayAllProducts(Model model){
@@ -83,7 +87,7 @@ public class ProductController {
         return "addproducts";
     }
 
-    @PostMapping(value = "/allproducts/{productId}")
+    @PostMapping(value = "/allproducts/deleteproduct/{productId}")
     public String deleteProduct(@Param("productId") int productId){
         productService.deleteProduct(productId);
         return "redirect:/allproducts";
@@ -93,10 +97,10 @@ public class ProductController {
     public String editPage(Model model, @PathVariable("productId") int productId){
         Product product = productService.getProduct(productId);
         model.addAttribute("product", product);
-        return "allproducts/editproduct";
+        return "editproduct";
     }
 
-    @PostMapping(value = "edit")
+    @PostMapping(value = "/edit")
     public String editProduct(@Param("name") String name, @Param("description") String description, @Param("price") BigDecimal price, @Param("itemsNumber") int itemsNumber, @Param("picture") String picture, @Param("isAccessory") Boolean isAccessory, @Param("productId") int productId){
         productService.editProduct(name, description, price, itemsNumber, picture, isAccessory, productId);
         return "redirect:/allproducts";
