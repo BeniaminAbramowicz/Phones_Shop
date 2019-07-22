@@ -13,6 +13,9 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
+    @Query(value = "SELECT * FROM product p WHERE p.product_id=:productId", nativeQuery = true)
+    Product getProduct(int productId);
+
     @Query(value = "SELECT * FROM product ORDER BY name", nativeQuery = true)
     List<Product> displayAllProducts();
 
@@ -39,7 +42,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     void deleteProduct(@Param("productId") int productId);
 
     @Modifying
-    @Query(value = "UPDATE product p SET p.name=:name, p.description=:description, p.price=:price, p.items_number=:itemsNumber, p.picture=:picture, p.is_accessory=isAccessory WHERE p.product_id=:productId", nativeQuery = true)
+    @Query(value = "UPDATE product p SET p.name=:name, p.description=:description, p.price=:price, p.items_number=:itemsNumber, p.picture=:picture, p.is_accessory=:isAccessory WHERE p.product_id=:productId", nativeQuery = true)
     void editProduct(@Param("name") String name, @Param("description") String description, @Param("price") BigDecimal price, @Param("itemsNumber") int itemsNumber, @Param("picture") String picture, @Param("isAccessory") Boolean isAccessory, @Param("productId") int productId);
 
 

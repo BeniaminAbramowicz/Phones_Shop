@@ -19,7 +19,7 @@
     <div class="col-md-8 offset-2">
     <div class="card border-black rounded-0">
     <div class="card-body">
-    <form class="form-signin" action="/addproduct" modelAttribute="product" method="POST">
+    <form class="form-signin" action="/edit" modelAttribute="product" method="POST">
     <input type="hidden" name="productId" value="${product.productId}">
       <div class="form-group">
         <label for="name">Product name</label>

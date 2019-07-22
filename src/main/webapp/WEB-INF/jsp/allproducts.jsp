@@ -27,11 +27,12 @@
                     <h1 class="card-title">${product.name}</h1>
                     <h2 class="card-text">Price: ${product.price} PLN</h2>
                     <h4 class="card-text">Quantity: ${product.itemsNumber}</h4>
-                    <h5 class="card-text">About product:<p>${product.description}</p></h5>
+                    <h5 class="card-text">About product:${product.description}</h5>
+                    <a type="button" class="btn btn-success" href="${pageContext.request.contextPath}/allproducts/editproduct/${product.productId}">Edit product</a>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    <form method="post" action="/allproducts/${product.productId}" modelAttribute="product" method="POST">
+                    <form method="post" action="/allproducts/${product.productId}" modelAttribute="product">
                     <input type="hidden" name="productId" value="${product.productId}">
-                    <button type="submit" class="btn btn-danger"> Delete</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                     </sec:authorize>
                 </div>
