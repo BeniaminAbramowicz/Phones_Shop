@@ -40,6 +40,11 @@
          <a class="nav-link" href="${pageContext.request.contextPath}/logout">Log out</a>
       </li>
       </sec:authorize>
+      <sec:authorize access="isAuthenticated()">
+      <li class="nav-item">
+         <a class="nav-link" href="${pageContext.request.contextPath}/orders">Orders</a>
+      </li>
+      </sec:authorize>
     </ul>
   </div>
 </nav>
