@@ -15,6 +15,7 @@
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
     <form method="post" action="/createorder" modelAttribute="order">
+    <input type="hidden" name="userId" value="${user.userId}">
     <button type="submit" class="btn btn-success">Create order</button>
     </form>
     <%@include file="/WEB-INF/include/footer.app" %>
