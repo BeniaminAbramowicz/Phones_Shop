@@ -1,7 +1,9 @@
 package abramowicz.phonesshop.repositories;
 
 import abramowicz.phonesshop.entities.Order;
+import abramowicz.phonesshop.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -9,7 +11,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
-    @Query(value = "INSERT INTO order(order_id, status, user_id, total_price) VALUES(?,'open',?,0)", nativeQuery = true)
-    void createOrder(@Param("user_id") int userId);
+    @Modifying
+    @Query(value = "INSERT INTO `order`(`order_id`, `status`, `user_id`, `total_price`) VALUES (NULL,'open',?,'0')", nativeQuery = true)
+    void createOrder(@Param("userId") int userId);
 
+    @Modifying
+    @Query(value = "INSERT INTO `order`(`order_id`, `status`, `user_id`, `total_price`) VALUES (NULL,'open','2','0')", nativeQuery = true)
+    void test();
+
+    @Query(value = "SELECT * FROM user WHERE user_id = 2", nativeQuery = true)
+    User getUser();
 }
