@@ -18,6 +18,24 @@
     <input type="hidden" name="userId" value="${user.userId}">
     <button type="submit" class="btn btn-success">Create order</button>
     </form>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Order status</th>
+            <th scope="col">Total price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="order" items="${orders}">
+        <tr>
+            <td>${order.orderId}</td>
+            <td>${order.status}</td>
+            <td>${order.totalPrice}</td>
+        </tr>
+        </c:forEach>
+        </tbody>
+    </table>
     <%@include file="/WEB-INF/include/footer.app" %>
 </wrapper>
 </body>

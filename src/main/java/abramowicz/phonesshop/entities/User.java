@@ -53,4 +53,5 @@ public class User {
     public User(){
         //for JPA
     }
+
 }

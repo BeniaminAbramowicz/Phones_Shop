@@ -1,6 +1,7 @@
 package abramowicz.phonesshop.controllers;
 
 
+import abramowicz.phonesshop.entities.Order;
 import abramowicz.phonesshop.entities.User;
 import abramowicz.phonesshop.service.OrderService;
 import abramowicz.phonesshop.service.UserService;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class OrderController {
@@ -25,8 +28,10 @@ public class OrderController {
 
     @GetMapping(value = "/orders")
     public String displayOrders(Model model){
+        List<Order> orders = orderService.displayOrders();
         User user = userService.displayUser();
         model.addAttribute("user", user);
+        model.addAttribute("orders", orders);
         return "orders";
     }
 
