@@ -2,8 +2,7 @@ package abramowicz.phonesshop.service;
 
 import abramowicz.phonesshop.entities.User;
 
-public interface OrderService {
+public interface UserService {
 
-    void createOrder(int userId);
-    void test();
+    User displayUser();
 }
