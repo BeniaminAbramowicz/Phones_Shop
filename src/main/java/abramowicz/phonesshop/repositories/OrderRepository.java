@@ -15,8 +15,4 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query(value = "INSERT INTO `order`(`order_id`, `status`, `user_id`, `total_price`) VALUES (NULL,'open',?,'0')", nativeQuery = true)
     void createOrder(@Param("userId") int userId);
 
-    @Modifying
-    @Query(value = "INSERT INTO `order`(`order_id`, `status`, `user_id`, `total_price`) VALUES (NULL,'open','2','0')", nativeQuery = true)
-    void test();
-
 }

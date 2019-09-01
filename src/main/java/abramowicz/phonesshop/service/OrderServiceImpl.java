@@ -22,7 +22,4 @@ public class OrderServiceImpl implements OrderService{
         orderRepository.createOrder(userId);
     }
 
-    @Override
-    public void test(){orderRepository.test();}
-
 }

@@ -36,12 +36,4 @@ public class OrderController {
         return "redirect:/orders";
     }
 
-    @PostMapping(value = "/test")
-    public String test(){
-        orderService.test();
-        return "redirect:/orders";
-    }
-
-
-
 }
