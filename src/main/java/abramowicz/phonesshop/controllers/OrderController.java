@@ -5,6 +5,7 @@ import abramowicz.phonesshop.entities.Order;
 import abramowicz.phonesshop.entities.User;
 import abramowicz.phonesshop.service.OrderService;
 import abramowicz.phonesshop.service.UserService;
+import abramowicz.phonesshop.utilities.UserUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,8 @@ public class OrderController {
     @GetMapping(value = "/orders")
     public String displayOrders(Model model){
         List<Order> orders = orderService.displayOrders();
-        User user = userService.displayUser();
+        String username = UserUtilities.getLoggedUsername();
+        User user = userService.getUserByEmail(username);
         model.addAttribute("user", user);
         model.addAttribute("orders", orders);
         return "orders";
