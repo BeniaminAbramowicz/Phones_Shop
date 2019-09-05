@@ -36,46 +36,46 @@ public class ProductController {
         return "allproducts";
     }
 
-    @GetMapping(value = "/samsung")
+    @GetMapping(value = "/allproducts/samsung")
     public String displaySamsung(Model model){
         List<Product> productList = productService.displaySamsungPhones();
         model.addAttribute("productList", productList);
-        return "samsung";
+        return "allproducts";
     }
 
-    @GetMapping(value = "/xiaomi")
+    @GetMapping(value = "/allproducts/xiaomi")
     public String displayXiaomi(Model model){
         List<Product> productList = productService.displayXiaomiPhones();
         model.addAttribute("productList", productList);
-        return "xiaomi";
+        return "allproducts";
     }
 
-    @GetMapping(value = "/lg")
+    @GetMapping(value = "/allproducts/lg")
     public String displayLg(Model model){
         List<Product> productList = productService.displayLgPhones();
         model.addAttribute("productList", productList);
-        return "lg";
+        return "allproducts";
     }
 
-    @GetMapping(value = "/apple")
+    @GetMapping(value = "/allproducts/apple")
     public String displayApple(Model model){
         List<Product> productList = productService.displayApplePhones();
         model.addAttribute("productList", productList);
-        return "apple";
+        return "allproducts";
     }
 
-    @GetMapping(value = "/oneplus")
+    @GetMapping(value = "/allproducts/oneplus")
     public String displayOneplus(Model model){
         List<Product> productList = productService.displayOneplusPhones();
         model.addAttribute("productList", productList);
-        return "oneplus";
+        return "allproducts";
     }
 
-    @GetMapping(value = "/accessories")
+    @GetMapping(value = "/allproducts/accessories")
     public String displayAccessories(Model model){
         List<Product> productList = productService.displayAccessories();
         model.addAttribute("productList", productList);
-        return "accessories";
+        return "allproducts";
     }
 
     @GetMapping(value = "/addproducts")

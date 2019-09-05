@@ -15,15 +15,15 @@
           Phones
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="${pageContext.request.contextPath}/samsung">Samsung</a>
-          <a class="dropdown-item" href="${pageContext.request.contextPath}/xiaomi">Xiaomi</a>
-          <a class="dropdown-item" href="${pageContext.request.contextPath}/lg">LG</a>
-          <a class="dropdown-item" href="${pageContext.request.contextPath}/apple">Apple</a>
-          <a class="dropdown-item" href="${pageContext.request.contextPath}/oneplus">One Plus</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/allproducts/samsung">Samsung</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/allproducts/xiaomi">Xiaomi</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/allproducts/lg">LG</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/allproducts/apple">Apple</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/allproducts/oneplus">One Plus</a>
         </div>
       </li>
       <li class="nav-item">
-         <a class="nav-link" href="${pageContext.request.contextPath}/accessories">Accessories</a>
+         <a class="nav-link" href="${pageContext.request.contextPath}/allproducts/accessories">Accessories</a>
       </li>
       <sec:authorize access="hasRole('ROLE_ADMIN')">
         <li class="nav-item">
