@@ -3,6 +3,7 @@ package abramowicz.phonesshop.controllers;
 
 import abramowicz.phonesshop.entities.Product;
 import abramowicz.phonesshop.service.ProductService;
+import abramowicz.phonesshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -20,9 +21,12 @@ public class ProductController {
 
     private final ProductService productService;
 
+    private final UserService userService;
+
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, UserService userService) {
         this.productService = productService;
+        this.userService = userService;
     }
 
     @GetMapping(value = "/allproducts")

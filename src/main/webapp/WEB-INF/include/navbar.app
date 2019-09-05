@@ -25,20 +25,10 @@
       <li class="nav-item">
          <a class="nav-link" href="${pageContext.request.contextPath}/accessories">Accessories</a>
       </li>
-      <sec:authorize access="hasRole('ANONYMOUS')">
-      <li class="nav-item">
-         <a class="nav-link" href="${pageContext.request.contextPath}/login">Login</a>
-      </li>
-      </sec:authorize>
       <sec:authorize access="hasRole('ROLE_ADMIN')">
         <li class="nav-item">
           <a class="nav-link" href="${pageContext.request.contextPath}/addproducts">Add Product</a>
         </li>
-      </sec:authorize>
-      <sec:authorize access="isAuthenticated()">
-      <li class="nav-item">
-         <a class="nav-link" href="${pageContext.request.contextPath}/logout">Log out</a>
-      </li>
       </sec:authorize>
       <sec:authorize access="isAuthenticated()">
       <li class="nav-item">
@@ -47,4 +37,19 @@
       </sec:authorize>
     </ul>
   </div>
+  <ul class="navbar-inner navbar-nav">
+     <li class="nav-item">
+        <a class="nav-link disabled font-weight-bold text-dark" href="#" tabindex="-1" aria-disabled="true">${user.email}</a>
+     </li>
+  <sec:authorize access="hasRole('ANONYMOUS')">
+     <li class="nav-item">
+        <a class="nav-link" href="${pageContext.request.contextPath}/login">Login</a>
+     </li>
+  </sec:authorize>
+  <sec:authorize access="isAuthenticated()">
+     <li class="nav-item">
+        <a class="nav-link" href="${pageContext.request.contextPath}/logout">Log out</a>
+     </li>
+  </sec:authorize>
+  </ul>
 </nav>
