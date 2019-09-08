@@ -32,7 +32,7 @@
       </sec:authorize>
       <sec:authorize access="isAuthenticated()">
       <li class="nav-item">
-         <a class="nav-link" href="${pageContext.request.contextPath}/orders">Orders</a>
+         <a class="nav-link" href="${pageContext.request.contextPath}/orders/${user.userId}">Orders</a>
       </li>
       </sec:authorize>
     </ul>
