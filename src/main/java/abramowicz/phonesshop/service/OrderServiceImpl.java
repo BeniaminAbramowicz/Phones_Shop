@@ -25,7 +25,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public List<Order> displayOrders() {
-        return orderRepository.displayOrders();
+    public List<Order> displayOrders(int userId) {
+        return orderRepository.displayOrders(userId);
     }
 }

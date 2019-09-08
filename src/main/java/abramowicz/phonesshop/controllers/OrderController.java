@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -27,9 +28,9 @@ public class OrderController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/orders")
-    public String displayOrders(Model model){
-        List<Order> orders = orderService.displayOrders();
+    @GetMapping(value = "/orders/{userId}")
+    public String displayOrders(Model model, @PathVariable("userId") int userId){
+        List<Order> orders = orderService.displayOrders(userId);
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
         model.addAttribute("user", user);
