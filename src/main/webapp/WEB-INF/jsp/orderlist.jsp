@@ -18,6 +18,7 @@
     <table class="table">
         <thead>
         <tr>
+            <th scope=""col">Product Name</th>
             <th scope="col">Quantity</th>
             <th scope="col">Price</th>
         </tr>
@@ -25,6 +26,7 @@
         <tbody>
         <c:forEach var="orderList" items="${orderListItems}">
             <tr>
+                <td>${orderList.product.name}</td>
                 <td>${orderList.quantity}</td>
                 <td>${orderList.price}</td>
             </tr>
