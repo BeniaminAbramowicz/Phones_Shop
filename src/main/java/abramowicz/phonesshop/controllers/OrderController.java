@@ -2,8 +2,11 @@ package abramowicz.phonesshop.controllers;
 
 
 import abramowicz.phonesshop.entities.Order;
+import abramowicz.phonesshop.entities.OrderList;
+import abramowicz.phonesshop.entities.Product;
 import abramowicz.phonesshop.entities.User;
 import abramowicz.phonesshop.service.OrderService;
+import abramowicz.phonesshop.service.ProductService;
 import abramowicz.phonesshop.service.UserService;
 import abramowicz.phonesshop.utilities.UserUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +26,12 @@ public class OrderController {
 
     private final UserService userService;
 
+    private final ProductService productService;
+
     @Autowired
-    public OrderController(OrderService orderService, UserService userService){this.orderService = orderService;
+    public OrderController(OrderService orderService, UserService userService, ProductService productService){this.orderService = orderService;
         this.userService = userService;
+        this.productService = productService;
     }
 
     @GetMapping(value = "/orders/{userId}")
@@ -36,6 +42,15 @@ public class OrderController {
         model.addAttribute("user", user);
         model.addAttribute("orders", orders);
         return "orders";
+    }
+
+    @GetMapping(value = "/orders/orderdetails/{orderId}")
+    public String displayOrderList(Model model, @PathVariable("orderId") int orderId){
+        List<OrderList> orderListItems = orderService.displayOrderList(orderId);
+        List<Product> productList = productService.displayAllProducts();
+        model.addAttribute("orderListItems", orderListItems);
+        model.addAttribute("products", productList);
+        return "orderlist";
     }
 
     @PostMapping(value = "/createorder")

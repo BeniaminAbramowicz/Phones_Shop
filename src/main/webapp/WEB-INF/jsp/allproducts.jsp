@@ -30,13 +30,13 @@
                     <h4 class="card-text">Quantity: ${product.itemsNumber}</h4>
                     <h5 class="card-text">About product:${product.description}</h5>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    <form method="get" action="/allproducts/editproduct/${product.productId}" modelAttribute="product">
+                    <form method="get" action="/allproducts/editproduct/${product.productId}">
                     <input type="hidden" name="productId" value="${product.productId}">
                     <button type="submit" class="btn btn-success">Edit product</button>
                     </form>
                     </sec:authorize>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    <form method="post" action="/allproducts/deleteproduct/${product.productId}" modelAttribute="product">
+                    <form method="post" action="/allproducts/deleteproduct/${product.productId}">
                     <input type="hidden" name="productId" value="${product.productId}">
                     <button type="submit" class="btn btn-danger">Delete product</button>
                     </form>

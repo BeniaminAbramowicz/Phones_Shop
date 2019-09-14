@@ -1,7 +1,9 @@
 package abramowicz.phonesshop.service;
 
 import abramowicz.phonesshop.entities.Order;
+import abramowicz.phonesshop.entities.OrderList;
 import abramowicz.phonesshop.entities.User;
+import abramowicz.phonesshop.repositories.OrderListRepository;
 import abramowicz.phonesshop.repositories.OrderRepository;
 import abramowicz.phonesshop.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,13 @@ public class OrderServiceImpl implements OrderService{
 
     private final OrderRepository orderRepository;
 
+    private final OrderListRepository orderListRepository;
+
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository){this.orderRepository = orderRepository;}
+    public OrderServiceImpl(OrderRepository orderRepository, OrderListRepository orderListRepository){
+        this.orderRepository = orderRepository;
+        this.orderListRepository = orderListRepository;
+    }
 
     @Override
     public void createOrder(int userId) {
@@ -27,5 +34,10 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<Order> displayOrders(int userId) {
         return orderRepository.displayOrders(userId);
+    }
+
+    @Override
+    public List<OrderList> displayOrderList(int orderId) {
+        return orderListRepository.displayOrderList(orderId);
     }
 }
