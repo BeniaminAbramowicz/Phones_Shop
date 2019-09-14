@@ -10,11 +10,13 @@
 </head>
 <body>
 <wrapper class="d-flex flex-column">
+<main class="container-fluid py-3 flex-fill">
     <div class="logo">
         <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
     <input type="hidden" name="userId" value="${user.userId}">
+</main>
     <%@include file="/WEB-INF/include/footer.app" %>
 </wrapper>
 </body>

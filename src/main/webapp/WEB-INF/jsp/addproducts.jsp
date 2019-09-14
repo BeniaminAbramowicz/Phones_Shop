@@ -10,6 +10,7 @@
 </head>
 <body>
 <wrapper class="d-flex flex-column">
+<main class="container-fluid py-3 flex-fill">
     <input type="hidden" name="userId" value="${user.userId}">
     <div class="logo">
         <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
@@ -56,6 +57,7 @@
     </div>
     </main>
     <%@include file="/WEB-INF/include/footer.app" %>
+</main>
 </wrapper>
 </body>
 </html>
