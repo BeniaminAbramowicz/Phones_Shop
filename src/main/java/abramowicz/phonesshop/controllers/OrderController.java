@@ -66,6 +66,7 @@ public class OrderController {
         price = price.multiply(new BigDecimal(quantity));
         orderService.addItem(quantity, price, orderId, productId);
         productService.subQuantity(quantity, productId);
+        orderService.sumTotalPrice();
         return "redirect:/allproducts";
     }
 

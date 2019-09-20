@@ -52,4 +52,9 @@ public class OrderServiceImpl implements OrderService {
     public void addItem(int quantity, BigDecimal price, int orderId, int productId) {
         orderListRepository.addItem(quantity, price, orderId, productId);
     }
+
+    @Override
+    public void sumTotalPrice() {
+        orderRepository.sumTotalPrice();
+    }
 }

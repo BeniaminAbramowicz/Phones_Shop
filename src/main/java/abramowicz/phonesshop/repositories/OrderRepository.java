@@ -22,6 +22,8 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query(value = "SELECT * FROM `order` o INNER JOIN `user` u ON u.user_id = o.user_id WHERE u.email=:email AND o.status='open' ", nativeQuery = true)
     Order getOpenOrder(String email);
 
-
+    @Modifying
+    @Query(value = "UPDATE `order` o INNER JOIN (SELECT order_id, SUM(price) 'sumu' FROM order_list GROUP BY order_id) ol ON o.order_id=ol.order_id SET o.total_price = ol.sumu", nativeQuery = true)
+    void sumTotalPrice();
 
 }
