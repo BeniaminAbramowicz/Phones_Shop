@@ -63,6 +63,7 @@ public class OrderController {
 
     @PostMapping(value = "/orderitem")
     public String orderItem(@Param("productId") int productId, @Param("orderId") int orderId, @Param("quantity") int quantity, @Param("price") BigDecimal price){
+        price = price.multiply(new BigDecimal(quantity));
         orderService.addItem(quantity, price, orderId, productId);
         productService.subQuantity(quantity, productId);
         return "redirect:/allproducts";
