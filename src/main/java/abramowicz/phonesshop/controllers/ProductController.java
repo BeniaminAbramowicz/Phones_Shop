@@ -36,11 +36,11 @@ public class ProductController {
     }
 
     @GetMapping(value = "/allproducts")
-    public String displayAllProducts(Model model){
+    public String displayAllProducts(Model model, @Param("email") String email){
         List<Product> productList = productService.displayAllProducts();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        Order order = orderService.getOpenOrder();
+        Order order = orderService.getOpenOrder(email);
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
         model.addAttribute("order", order);
@@ -48,74 +48,74 @@ public class ProductController {
     }
 
     @GetMapping(value = "/allproducts/samsung")
-    public String displaySamsung(Model model){
+    public String displaySamsung(Model model, @Param("userId") int userId){
         List<Product> productList = productService.displaySamsungPhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        Order order = orderService.getOpenOrder();
+        //Order order = orderService.getOpenOrder(userId);
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        model.addAttribute("order", order);
+        //model.addAttribute("order", order);
         return "allproducts";
     }
 
     @GetMapping(value = "/allproducts/xiaomi")
-    public String displayXiaomi(Model model){
+    public String displayXiaomi(Model model, @Param("userId") int userId){
         List<Product> productList = productService.displayXiaomiPhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        Order order = orderService.getOpenOrder();
+        //Order order = orderService.getOpenOrder(userId);
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        model.addAttribute("order", order);
+       // model.addAttribute("order", order);
         return "allproducts";
     }
 
     @GetMapping(value = "/allproducts/lg")
-    public String displayLg(Model model){
+    public String displayLg(Model model, @Param("userId") int userId){
         List<Product> productList = productService.displayLgPhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        Order order = orderService.getOpenOrder();
+        //Order order = orderService.getOpenOrder(userId);
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        model.addAttribute("order", order);
+        //model.addAttribute("order", order);
         return "allproducts";
     }
 
     @GetMapping(value = "/allproducts/apple")
-    public String displayApple(Model model){
+    public String displayApple(Model model, @Param("userId") int userId){
         List<Product> productList = productService.displayApplePhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        Order order = orderService.getOpenOrder();
+        //Order order = orderService.getOpenOrder(userId);
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        model.addAttribute("order", order);
+        //model.addAttribute("order", order);
         return "allproducts";
     }
 
     @GetMapping(value = "/allproducts/oneplus")
-    public String displayOneplus(Model model){
+    public String displayOneplus(Model model, @Param("userId") int userId){
         List<Product> productList = productService.displayOneplusPhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        Order order = orderService.getOpenOrder();
+        //Order order = orderService.getOpenOrder(userId);
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        model.addAttribute("order", order);
+        //model.addAttribute("order", order);
         return "allproducts";
     }
 
     @GetMapping(value = "/allproducts/accessories")
-    public String displayAccessories(Model model){
+    public String displayAccessories(Model model, @Param("userId") int userId){
         List<Product> productList = productService.displayAccessories();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        Order order = orderService.getOpenOrder();
+        //Order order = orderService.getOpenOrder(userId);
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        model.addAttribute("order", order);
+        //model.addAttribute("order", order);
         return "allproducts";
     }
 

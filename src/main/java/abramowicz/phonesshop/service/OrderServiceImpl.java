@@ -44,8 +44,8 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Order getOpenOrder() {
-        return orderRepository.getOpenOrder();
+    public Order getOpenOrder(String email) {
+        return orderRepository.getOpenOrder(email);
     }
 
     @Override

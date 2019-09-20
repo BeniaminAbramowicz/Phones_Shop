@@ -48,6 +48,9 @@ public class OrderController {
     @GetMapping(value = "/orders/orderdetails/{orderId}")
     public String displayOrderList(Model model, @PathVariable("orderId") int orderId){
         List<OrderList> orderListItems = orderService.displayOrderList(orderId);
+        String username = UserUtilities.getLoggedUsername();
+        User user = userService.getUserByEmail(username);
+        model.addAttribute("user", user);
         model.addAttribute("orderListItems", orderListItems);
         return "orderlist";
     }

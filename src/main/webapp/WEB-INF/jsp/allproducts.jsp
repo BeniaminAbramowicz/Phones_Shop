@@ -16,6 +16,9 @@
         <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
+        <p>${order.orderId}</p>
+        <p>${order.totalPrice}</p>
+        <p>${user.userId}</p>
         <table class="table">
         <tbody>
         <c:forEach var="product" items="${productList}">
@@ -47,7 +50,7 @@
                             <input type="hidden" name="productId" value="${product.productId}">
                             <input type="hidden" name="orderId" value="${order.orderId}">
                             <label for="quantity">Number of items</label>
-                            <input type="number" name="quantity" id="quantity">
+                            <input type="number" name="quantity" min="0" id="quantity">
                             <input type="hidden" name="price" value="${product.price}">
                             <button type="submit" class="btn btn-primary">Add item to order</button>
                         </form>

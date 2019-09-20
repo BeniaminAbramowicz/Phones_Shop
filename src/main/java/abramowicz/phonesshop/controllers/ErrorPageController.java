@@ -25,7 +25,6 @@ public class ErrorPageController implements ErrorController {
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
         model.addAttribute("user", user);
-
         return "error";
     }
 
