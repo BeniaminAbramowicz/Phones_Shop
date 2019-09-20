@@ -16,9 +16,6 @@
         <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
-        <p>${order.orderId}</p>
-        <p>${order.totalPrice}</p>
-        <p>${user.userId}</p>
         <table class="table">
         <tbody>
         <c:forEach var="product" items="${productList}">

@@ -10,6 +10,8 @@ import abramowicz.phonesshop.service.UserService;
 import abramowicz.phonesshop.utilities.UserUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,86 +38,100 @@ public class ProductController {
     }
 
     @GetMapping(value = "/allproducts")
-    public String displayAllProducts(Model model, @Param("email") String email){
+    public String displayAllProducts(Model model){
         List<Product> productList = productService.displayAllProducts();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        Order order = orderService.getOpenOrder(email);
+        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
+            Order order = orderService.getOpenOrder(user.getEmail());
+            model.addAttribute("order", order);
+        }
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        model.addAttribute("order", order);
         return "allproducts";
     }
 
     @GetMapping(value = "/allproducts/samsung")
-    public String displaySamsung(Model model, @Param("userId") int userId){
+    public String displaySamsung(Model model){
         List<Product> productList = productService.displaySamsungPhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        //Order order = orderService.getOpenOrder(userId);
+        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
+            Order order = orderService.getOpenOrder(user.getEmail());
+            model.addAttribute("order", order);
+        }
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        //model.addAttribute("order", order);
         return "allproducts";
     }
 
     @GetMapping(value = "/allproducts/xiaomi")
-    public String displayXiaomi(Model model, @Param("userId") int userId){
+    public String displayXiaomi(Model model){
         List<Product> productList = productService.displayXiaomiPhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        //Order order = orderService.getOpenOrder(userId);
+        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
+            Order order = orderService.getOpenOrder(user.getEmail());
+            model.addAttribute("order", order);
+        }
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-       // model.addAttribute("order", order);
         return "allproducts";
     }
 
     @GetMapping(value = "/allproducts/lg")
-    public String displayLg(Model model, @Param("userId") int userId){
+    public String displayLg(Model model){
         List<Product> productList = productService.displayLgPhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        //Order order = orderService.getOpenOrder(userId);
+        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
+            Order order = orderService.getOpenOrder(user.getEmail());
+            model.addAttribute("order", order);
+        }
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        //model.addAttribute("order", order);
         return "allproducts";
     }
 
     @GetMapping(value = "/allproducts/apple")
-    public String displayApple(Model model, @Param("userId") int userId){
+    public String displayApple(Model model){
         List<Product> productList = productService.displayApplePhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        //Order order = orderService.getOpenOrder(userId);
+        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
+            Order order = orderService.getOpenOrder(user.getEmail());
+            model.addAttribute("order", order);
+        }
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        //model.addAttribute("order", order);
         return "allproducts";
     }
 
     @GetMapping(value = "/allproducts/oneplus")
-    public String displayOneplus(Model model, @Param("userId") int userId){
+    public String displayOneplus(Model model){
         List<Product> productList = productService.displayOneplusPhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        //Order order = orderService.getOpenOrder(userId);
+        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
+            Order order = orderService.getOpenOrder(user.getEmail());
+            model.addAttribute("order", order);
+        }
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        //model.addAttribute("order", order);
         return "allproducts";
     }
 
     @GetMapping(value = "/allproducts/accessories")
-    public String displayAccessories(Model model, @Param("userId") int userId){
+    public String displayAccessories(Model model){
         List<Product> productList = productService.displayAccessories();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        //Order order = orderService.getOpenOrder(userId);
+        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
+            Order order = orderService.getOpenOrder(user.getEmail());
+            model.addAttribute("order", order);
+        }
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        //model.addAttribute("order", order);
         return "allproducts";
     }
 

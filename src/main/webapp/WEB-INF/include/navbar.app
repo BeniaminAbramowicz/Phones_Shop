@@ -38,12 +38,11 @@
     </ul>
   </div>
   <ul class="navbar-inner navbar-nav">
+  <sec:authorize access="isAuthenticated()">
      <li class="nav-item">
         <a class="nav-link disabled font-weight-bold text-dark" href="#" tabindex="-1" aria-disabled="true">${user.email}</a>
      </li>
-     <li class="nav-item">
-        <a class="nav-link disabled" name="userId" href="#" aria-disabled="true">${user.userId}</a>
-     </li>
+  </sec:authorize>
   <sec:authorize access="hasRole('ANONYMOUS')">
      <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/login">Login</a>
