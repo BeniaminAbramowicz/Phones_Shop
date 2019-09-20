@@ -18,4 +18,5 @@ public interface ProductService {
     void saveProduct(Product product);
     void deleteProduct(int productId);
     void editProduct(String name, String description, BigDecimal price, int itemsNumber, String picture, Boolean isAccessory, int productId);
+//    void subQuantity(int quantity);
 }

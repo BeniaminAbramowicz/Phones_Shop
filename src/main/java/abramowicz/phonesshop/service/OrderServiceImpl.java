@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service("orderService")
@@ -40,5 +41,15 @@ public class OrderServiceImpl implements OrderService{
     public List<OrderList> displayOrderList(int orderId) {
         return orderListRepository.displayOrderList(orderId);
         //return orderListRepository.findAllByOrder_OrderId(orderId);
+    }
+
+    @Override
+    public Order getOpenOrder() {
+        return orderRepository.getOpenOrder();
+    }
+
+    @Override
+    public void addItem(int quantity, BigDecimal price, int orderId, int productId){
+        orderListRepository.addItem(quantity, price, orderId, productId);
     }
 }

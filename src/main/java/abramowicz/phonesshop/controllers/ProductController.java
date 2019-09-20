@@ -1,8 +1,10 @@
 package abramowicz.phonesshop.controllers;
 
 
+import abramowicz.phonesshop.entities.Order;
 import abramowicz.phonesshop.entities.Product;
 import abramowicz.phonesshop.entities.User;
+import abramowicz.phonesshop.service.OrderService;
 import abramowicz.phonesshop.service.ProductService;
 import abramowicz.phonesshop.service.UserService;
 import abramowicz.phonesshop.utilities.UserUtilities;
@@ -24,10 +26,13 @@ public class ProductController {
 
     private final UserService userService;
 
+    private final OrderService orderService;
+
     @Autowired
-    public ProductController(ProductService productService, UserService userService) {
+    public ProductController(ProductService productService, UserService userService, OrderService orderService) {
         this.productService = productService;
         this.userService = userService;
+        this.orderService = orderService;
     }
 
     @GetMapping(value = "/allproducts")
@@ -35,8 +40,10 @@ public class ProductController {
         List<Product> productList = productService.displayAllProducts();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
+        Order order = orderService.getOpenOrder();
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
+        model.addAttribute("order", order);
         return "allproducts";
     }
 
@@ -45,8 +52,10 @@ public class ProductController {
         List<Product> productList = productService.displaySamsungPhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
+        Order order = orderService.getOpenOrder();
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
+        model.addAttribute("order", order);
         return "allproducts";
     }
 
@@ -55,8 +64,10 @@ public class ProductController {
         List<Product> productList = productService.displayXiaomiPhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
+        Order order = orderService.getOpenOrder();
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
+        model.addAttribute("order", order);
         return "allproducts";
     }
 
@@ -65,8 +76,10 @@ public class ProductController {
         List<Product> productList = productService.displayLgPhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
+        Order order = orderService.getOpenOrder();
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
+        model.addAttribute("order", order);
         return "allproducts";
     }
 
@@ -75,8 +88,10 @@ public class ProductController {
         List<Product> productList = productService.displayApplePhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
+        Order order = orderService.getOpenOrder();
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
+        model.addAttribute("order", order);
         return "allproducts";
     }
 
@@ -85,8 +100,10 @@ public class ProductController {
         List<Product> productList = productService.displayOneplusPhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
+        Order order = orderService.getOpenOrder();
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
+        model.addAttribute("order", order);
         return "allproducts";
     }
 
@@ -95,8 +112,10 @@ public class ProductController {
         List<Product> productList = productService.displayAccessories();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
+        Order order = orderService.getOpenOrder();
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
+        model.addAttribute("order", order);
         return "allproducts";
     }
 

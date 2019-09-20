@@ -74,4 +74,9 @@ public class ProductServiceImpl implements ProductService{
     public void editProduct(String name, String description, BigDecimal price, int itemsNumber, String picture, Boolean isAccessory, int productId) {
         productRepository.editProduct(name, description, price, itemsNumber, picture, isAccessory, productId);
     }
+
+//    @Override
+//    public void subQuantity(int quantity){
+//        productRepository.subQuantity(quantity);
+//    }
 }

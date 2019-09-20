@@ -42,6 +42,16 @@
                     <button type="submit" class="btn btn-danger">Delete product</button>
                     </form>
                     </sec:authorize>
+                    <sec:authorize access="isAuthenticated()">
+                        <form method="post" action="/orderitem">
+                            <input type="hidden" name="productId" value="${product.productId}">
+                            <input type="hidden" name="orderId" value="${order.orderId}">
+                            <label for="quantity">Number of items</label>
+                            <input type="number" name="quantity" id="quantity">
+                            <input type="hidden" name="price" value="${product.price}">
+                            <button type="submit" class="btn btn-primary">Add item to order</button>
+                        </form>
+                    </sec:authorize>
                 </div>
             </div>
         </td>

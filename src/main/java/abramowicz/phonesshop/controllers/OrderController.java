@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -26,12 +27,12 @@ public class OrderController {
 
     private final UserService userService;
 
-    private final ProductService productService;
+
 
     @Autowired
-    public OrderController(OrderService orderService, UserService userService, ProductService productService){this.orderService = orderService;
+    public OrderController(OrderService orderService, UserService userService){this.orderService = orderService;
         this.userService = userService;
-        this.productService = productService;
+
     }
 
     @GetMapping(value = "/orders/{userId}")
@@ -55,6 +56,12 @@ public class OrderController {
     public String createOrder(@Param("userId") int userId){
         orderService.createOrder(userId);
         return "redirect:/orders";
+    }
+
+    @PostMapping(value = "/orderitem")
+    public String orderItem(@Param("productId") int productId, @Param("orderId") int orderId, @Param("quantity") int quantity, @Param("price") BigDecimal price){
+        orderService.addItem(quantity, price, orderId, productId);
+        return "redirect:/allproducts";
     }
 
 }
