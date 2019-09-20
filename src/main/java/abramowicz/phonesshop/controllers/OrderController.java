@@ -27,12 +27,12 @@ public class OrderController {
 
     private final UserService userService;
 
-
+    private final ProductService productService;
 
     @Autowired
-    public OrderController(OrderService orderService, UserService userService){this.orderService = orderService;
+    public OrderController(OrderService orderService, UserService userService, ProductService productService){this.orderService = orderService;
         this.userService = userService;
-
+        this.productService = productService;
     }
 
     @GetMapping(value = "/orders/{userId}")
@@ -61,6 +61,7 @@ public class OrderController {
     @PostMapping(value = "/orderitem")
     public String orderItem(@Param("productId") int productId, @Param("orderId") int orderId, @Param("quantity") int quantity, @Param("price") BigDecimal price){
         orderService.addItem(quantity, price, orderId, productId);
+        productService.subQuantity(quantity, productId);
         return "redirect:/allproducts";
     }
 

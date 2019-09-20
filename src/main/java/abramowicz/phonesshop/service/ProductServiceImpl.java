@@ -75,8 +75,8 @@ public class ProductServiceImpl implements ProductService{
         productRepository.editProduct(name, description, price, itemsNumber, picture, isAccessory, productId);
     }
 
-//    @Override
-//    public void subQuantity(int quantity){
-//        productRepository.subQuantity(quantity);
-//    }
+    @Override
+    public void subQuantity(int quantity, int productId){
+        productRepository.subQuantity(quantity, productId);
+    }
 }
