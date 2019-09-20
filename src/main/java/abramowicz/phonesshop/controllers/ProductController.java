@@ -10,6 +10,8 @@ import abramowicz.phonesshop.service.UserService;
 import abramowicz.phonesshop.utilities.UserUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,10 +42,12 @@ public class ProductController {
         List<Product> productList = productService.displayAllProducts();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        Order order = orderService.getOpenOrder();
+        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
+            Order order = orderService.getOpenOrder(user.getEmail());
+            model.addAttribute("order", order);
+        }
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        model.addAttribute("order", order);
         return "allproducts";
     }
 
@@ -52,10 +56,12 @@ public class ProductController {
         List<Product> productList = productService.displaySamsungPhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        Order order = orderService.getOpenOrder();
+        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
+            Order order = orderService.getOpenOrder(user.getEmail());
+            model.addAttribute("order", order);
+        }
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        model.addAttribute("order", order);
         return "allproducts";
     }
 
@@ -64,10 +70,12 @@ public class ProductController {
         List<Product> productList = productService.displayXiaomiPhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        Order order = orderService.getOpenOrder();
+        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
+            Order order = orderService.getOpenOrder(user.getEmail());
+            model.addAttribute("order", order);
+        }
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        model.addAttribute("order", order);
         return "allproducts";
     }
 
@@ -76,10 +84,12 @@ public class ProductController {
         List<Product> productList = productService.displayLgPhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        Order order = orderService.getOpenOrder();
+        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
+            Order order = orderService.getOpenOrder(user.getEmail());
+            model.addAttribute("order", order);
+        }
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        model.addAttribute("order", order);
         return "allproducts";
     }
 
@@ -88,10 +98,12 @@ public class ProductController {
         List<Product> productList = productService.displayApplePhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        Order order = orderService.getOpenOrder();
+        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
+            Order order = orderService.getOpenOrder(user.getEmail());
+            model.addAttribute("order", order);
+        }
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        model.addAttribute("order", order);
         return "allproducts";
     }
 
@@ -100,10 +112,12 @@ public class ProductController {
         List<Product> productList = productService.displayOneplusPhones();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        Order order = orderService.getOpenOrder();
+        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
+            Order order = orderService.getOpenOrder(user.getEmail());
+            model.addAttribute("order", order);
+        }
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        model.addAttribute("order", order);
         return "allproducts";
     }
 
@@ -112,10 +126,12 @@ public class ProductController {
         List<Product> productList = productService.displayAccessories();
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        Order order = orderService.getOpenOrder();
+        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
+            Order order = orderService.getOpenOrder(user.getEmail());
+            model.addAttribute("order", order);
+        }
         model.addAttribute("user", user);
         model.addAttribute("productList", productList);
-        model.addAttribute("order", order);
         return "allproducts";
     }
 

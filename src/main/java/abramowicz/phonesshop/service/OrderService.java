@@ -11,6 +11,6 @@ public interface OrderService {
     void createOrder(int userId);
     List<Order> displayOrders(int userId);
     List<OrderList> displayOrderList(int orderId);
-    Order getOpenOrder();
+    Order getOpenOrder(String email);
     void addItem(int quantity, BigDecimal price, int orderId, int productId);
 }

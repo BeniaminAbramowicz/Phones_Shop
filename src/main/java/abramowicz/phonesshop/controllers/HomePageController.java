@@ -24,7 +24,6 @@ public class HomePageController {
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
         model.addAttribute("user", user);
-
         return "index";
     }
 }

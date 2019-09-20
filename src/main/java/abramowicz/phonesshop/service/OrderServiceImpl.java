@@ -15,14 +15,14 @@ import java.util.List;
 
 @Service("orderService")
 @Transactional
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
 
     private final OrderListRepository orderListRepository;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, OrderListRepository orderListRepository){
+    public OrderServiceImpl(OrderRepository orderRepository, OrderListRepository orderListRepository) {
         this.orderRepository = orderRepository;
         this.orderListRepository = orderListRepository;
     }
@@ -44,12 +44,12 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Order getOpenOrder() {
-        return orderRepository.getOpenOrder();
+    public Order getOpenOrder(String email) {
+        return orderRepository.getOpenOrder(email);
     }
 
     @Override
-    public void addItem(int quantity, BigDecimal price, int orderId, int productId){
+    public void addItem(int quantity, BigDecimal price, int orderId, int productId) {
         orderListRepository.addItem(quantity, price, orderId, productId);
     }
 }

@@ -19,8 +19,8 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query(value = "SELECT * FROM `order` WHERE user_id=:userId", nativeQuery = true)
     List<Order> displayOrders(int userId);
 
-    @Query(value = "SELECT * FROM `order` WHERE status='open'", nativeQuery = true)
-    Order getOpenOrder();
+    @Query(value = "SELECT * FROM `order` o RIGHT JOIN `user` u ON u.user_id = o.user_id WHERE u.email=:email AND o.status='open' ", nativeQuery = true)
+    Order getOpenOrder(String email);
 
 
 }
