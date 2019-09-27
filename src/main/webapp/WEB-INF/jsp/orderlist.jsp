@@ -22,6 +22,7 @@
             <th scope=""col">Product Name</th>
             <th scope="col">Quantity</th>
             <th scope="col">Price</th>
+            <th scope="col">Remove Items</th>
         </tr>
         </thead>
         <tbody>
@@ -30,6 +31,13 @@
                 <td>${orderList.product.name}</td>
                 <td>${orderList.quantity}</td>
                 <td>${orderList.price}</td>
+                <td>
+                    <form method="post" action="/orders/orderdetails/deleteitem/{orderListId}">
+                        <input type="hidden" name="orderListId" value="${orderList.orderListId}">
+                        <input type="number" name="quantity" min="0" id="quantity">
+                        <button type="submit" class="btn btn-danger">Remove items</button>
+                    </form>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

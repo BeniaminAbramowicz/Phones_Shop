@@ -69,5 +69,15 @@ public class OrderController {
         orderService.sumTotalPrice();
         return "redirect:/allproducts";
     }
+    @PostMapping(value = "/orders/orderdetails/deleteitem/{orderListId}")
+    public String deleteItem(@Param("orderListId") int orderListId, int quantity){
+        OrderList orderList = orderService.getOrderListById(orderListId);
+        if(quantity >= orderList.getQuantity()){
+           orderService.removeFromOrder(orderListId);
+        } else {
+            orderService.subItemsInOrder(quantity, orderListId);
+        }
+        return "redirect:/orders";
+    }
 
 }

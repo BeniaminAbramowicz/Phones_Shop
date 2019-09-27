@@ -57,4 +57,19 @@ public class OrderServiceImpl implements OrderService {
     public void sumTotalPrice() {
         orderRepository.sumTotalPrice();
     }
+
+    @Override
+    public void removeFromOrder(int orderListId) {
+        orderListRepository.deleteItemFromOrder(orderListId);
+    }
+
+    @Override
+    public OrderList getOrderListById(int orderListId) {
+        return orderListRepository.getOrderListByOrderListId(orderListId);
+    }
+
+    @Override
+    public void subItemsInOrder(int quantity, int orderListId) {
+        orderListRepository.subQuantity(quantity, orderListId);
+    }
 }

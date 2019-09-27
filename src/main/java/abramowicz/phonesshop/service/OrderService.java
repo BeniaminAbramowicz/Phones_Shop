@@ -14,4 +14,7 @@ public interface OrderService {
     Order getOpenOrder(String email);
     void addItem(int quantity, BigDecimal price, int orderId, int productId);
     void sumTotalPrice();
+    void removeFromOrder(int orderListId);
+    OrderList getOrderListById(int orderListId);
+    void subItemsInOrder(int quantity, int orderListId);
 }

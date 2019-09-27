@@ -49,4 +49,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "UPDATE product p SET p.items_number=p.items_number - :quantity WHERE p.product_id=:productId", nativeQuery = true)
     void subQuantity(@Param("quantity") int quantity, @Param("productId") int productId);
 
+    @Modifying
+    @Query(value = "UPDATE product p SET p.items_number=p.items_numer + :quantity WHERE p.product_id=:productId", nativeQuery = true)
+    void addQuantity(@Param("quantity") int quantity, @Param("productId") int productId);
+
 }

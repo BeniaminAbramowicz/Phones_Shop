@@ -26,4 +26,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query(value = "UPDATE `order` o INNER JOIN (SELECT order_id, SUM(price) 'sumu' FROM order_list GROUP BY order_id) ol ON o.order_id=ol.order_id SET o.total_price = ol.sumu", nativeQuery = true)
     void sumTotalPrice();
 
+
+
 }

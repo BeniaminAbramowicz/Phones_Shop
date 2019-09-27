@@ -21,4 +21,13 @@ public interface OrderListRepository extends JpaRepository<OrderList, Integer> {
     @Query(value= "INSERT INTO `order_list`(order_list_id, quantity, price, order_id, product_id) VALUES (NULL,?,?,?,?)", nativeQuery = true)
     void addItem(@Param("quantity") int quantity, @Param("price")BigDecimal price, @Param("order_id") int orderId, @Param("product_id") int productId);
 
+    OrderList getOrderListByOrderListId(int orderListId);
+
+    @Modifying
+    @Query(value = "DELETE FROM `order_list` WHERE order_list_id=:orderListId", nativeQuery = true)
+    void deleteItemFromOrder(int orderListId);
+
+    @Modifying
+    @Query(value = "UPDATE `order_list` o SET o.quantity=o.quantity - :quantity WHERE o.order_list_id=:orderListId", nativeQuery = true)
+    void subQuantity(@Param("quantity") int quantity, @Param("orderListId") int orderListId);
 }

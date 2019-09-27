@@ -36,7 +36,7 @@
             <td>${order.status}</td>
             <td>${order.totalPrice}</td>
             <td>
-             <form method="get" action="/orders/orderdetails/${order.orderId}">
+            <form method="get" action="/orders/orderdetails/${order.orderId}">
                 <input type="hidden" name="orderId" value="${order.orderId}">
                 <button type="submit" class="btn btn-success">Items list</button>
             </form>
