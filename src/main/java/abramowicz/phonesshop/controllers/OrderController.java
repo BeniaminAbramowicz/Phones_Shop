@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -70,14 +71,21 @@ public class OrderController {
         return "redirect:/allproducts";
     }
     @PostMapping(value = "/orders/orderdetails/deleteitem/{orderListId}")
-    public String deleteItem(@Param("orderListId") int orderListId, int quantity){
+    public String deleteItem(@Param("orderListId") int orderListId, int quantity, @Param("productId") int productId, @Param("orderId") int orderId, RedirectAttributes redirectAttributes){
         OrderList orderList = orderService.getOrderListById(orderListId);
+        Product product = productService.getProduct(productId);
+        BigDecimal productPrice = product.getPrice();
+        BigDecimal price = productPrice.multiply(new BigDecimal(quantity));
+        redirectAttributes.addAttribute("orderId", orderId);
         if(quantity >= orderList.getQuantity()){
            orderService.removeFromOrder(orderListId);
+           orderService.sumTotalPrice();
         } else {
             orderService.subItemsInOrder(quantity, orderListId);
+            orderService.subPriceInOrder(price, orderListId);
+            orderService.sumTotalPrice();
         }
-        return "redirect:/orders";
+        return "redirect:/orders/orderdetails/{orderId}";
     }
 
 }

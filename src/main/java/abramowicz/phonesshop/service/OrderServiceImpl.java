@@ -72,4 +72,9 @@ public class OrderServiceImpl implements OrderService {
     public void subItemsInOrder(int quantity, int orderListId) {
         orderListRepository.subQuantity(quantity, orderListId);
     }
+
+    @Override
+    public void subPriceInOrder(BigDecimal price, int orderListId) {
+        orderListRepository.subPrice(price, orderListId);
+    }
 }

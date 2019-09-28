@@ -17,4 +17,5 @@ public interface OrderService {
     void removeFromOrder(int orderListId);
     OrderList getOrderListById(int orderListId);
     void subItemsInOrder(int quantity, int orderListId);
+    void subPriceInOrder(BigDecimal price, int orderListId);
 }

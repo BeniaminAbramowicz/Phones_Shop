@@ -33,6 +33,8 @@
                 <td>${orderList.price}</td>
                 <td>
                     <form method="post" action="/orders/orderdetails/deleteitem/{orderListId}">
+                        <input type="hidden" name="orderId" value="${orderList.order.orderId}">
+                        <input type="hidden" name="productId" value="${orderList.product.productId}">
                         <input type="hidden" name="orderListId" value="${orderList.orderListId}">
                         <input type="number" name="quantity" min="0" id="quantity">
                         <button type="submit" class="btn btn-danger">Remove items</button>

@@ -43,4 +43,60 @@ public class Product {
     public Product(){
         //for JPA
     }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public int getItemsNumber() {
+        return itemsNumber;
+    }
+
+    public void setItemsNumber(int itemsNumber) {
+        this.itemsNumber = itemsNumber;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public Boolean getAccessory() {
+        return isAccessory;
+    }
+
+    public void setAccessory(Boolean accessory) {
+        isAccessory = accessory;
+    }
 }

@@ -30,4 +30,8 @@ public interface OrderListRepository extends JpaRepository<OrderList, Integer> {
     @Modifying
     @Query(value = "UPDATE `order_list` o SET o.quantity=o.quantity - :quantity WHERE o.order_list_id=:orderListId", nativeQuery = true)
     void subQuantity(@Param("quantity") int quantity, @Param("orderListId") int orderListId);
+
+    @Modifying
+    @Query(value = "UPDATE `order_list` o SET o.price=o.price - :price WHERE o.order_list_id=:orderListId", nativeQuery = true)
+    void subPrice(@Param("price") BigDecimal price, @Param("orderListId") int orderListId);
 }
