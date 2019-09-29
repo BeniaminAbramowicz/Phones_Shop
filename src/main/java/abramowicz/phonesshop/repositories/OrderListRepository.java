@@ -23,6 +23,8 @@ public interface OrderListRepository extends JpaRepository<OrderList, Integer> {
 
     OrderList getOrderListByOrderListId(int orderListId);
 
+    OrderList getOrderListByProduct_ProductId(int productId);
+
     @Modifying
     @Query(value = "DELETE FROM `order_list` WHERE order_list_id=:orderListId", nativeQuery = true)
     void deleteItemFromOrder(int orderListId);
@@ -34,4 +36,8 @@ public interface OrderListRepository extends JpaRepository<OrderList, Integer> {
     @Modifying
     @Query(value = "UPDATE `order_list` o SET o.price=o.price - :price WHERE o.order_list_id=:orderListId", nativeQuery = true)
     void subPrice(@Param("price") BigDecimal price, @Param("orderListId") int orderListId);
+
+    @Modifying
+    @Query(value = "UPDATE `order_list` o SET o.price=o.price + :price, o.quantity=o.quantity + :quantity WHERE o.order_list_id=:orderListId", nativeQuery = true)
+    void addExistingItem(@Param("price") BigDecimal price, @Param("quantity") int quantity, @Param("orderListId") int orderListId);
 }

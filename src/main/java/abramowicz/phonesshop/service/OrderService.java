@@ -18,4 +18,6 @@ public interface OrderService {
     OrderList getOrderListById(int orderListId);
     void subItemsInOrder(int quantity, int orderListId);
     void subPriceInOrder(BigDecimal price, int orderListId);
+    void addExistingItem(BigDecimal price, int quantity, int orderListId);
+    OrderList getOrderListByProductId(int productId);
 }

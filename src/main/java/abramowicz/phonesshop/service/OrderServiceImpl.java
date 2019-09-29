@@ -77,4 +77,14 @@ public class OrderServiceImpl implements OrderService {
     public void subPriceInOrder(BigDecimal price, int orderListId) {
         orderListRepository.subPrice(price, orderListId);
     }
+
+    @Override
+    public void addExistingItem(BigDecimal price, int quantity, int orderListId) {
+        orderListRepository.addExistingItem(price, quantity, orderListId);
+    }
+
+    @Override
+    public OrderList getOrderListByProductId(int productId) {
+        return orderListRepository.getOrderListByProduct_ProductId(productId);
+    }
 }

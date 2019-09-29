@@ -8,6 +8,7 @@ import abramowicz.phonesshop.entities.User;
 import abramowicz.phonesshop.service.OrderService;
 import abramowicz.phonesshop.service.ProductService;
 import abramowicz.phonesshop.service.UserService;
+import abramowicz.phonesshop.utilities.OtherUtils;
 import abramowicz.phonesshop.utilities.UserUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -64,10 +65,19 @@ public class OrderController {
 
     @PostMapping(value = "/orderitem")
     public String orderItem(@Param("productId") int productId, @Param("orderId") int orderId, @Param("quantity") int quantity, @Param("price") BigDecimal price){
-        price = price.multiply(new BigDecimal(quantity));
-        orderService.addItem(quantity, price, orderId, productId);
-        productService.subQuantity(quantity, productId);
-        orderService.sumTotalPrice();
+        List<OrderList> orderListItems = orderService.displayOrderList(orderId);
+        if(OtherUtils.containsItem(orderListItems, productId)){
+            BigDecimal summedPrice = price.multiply(new BigDecimal(quantity));
+            OrderList orderList = orderService.getOrderListByProductId(productId);
+            orderService.addExistingItem(summedPrice, quantity, orderList.getOrderListId());
+            productService.subQuantity(quantity, productId);
+            orderService.sumTotalPrice();
+        } else{
+            price.multiply(new BigDecimal(quantity));
+            orderService.addItem(quantity, price, orderId, productId);
+            productService.subQuantity(quantity, productId);
+            orderService.sumTotalPrice();
+        }
         return "redirect:/allproducts";
     }
     @PostMapping(value = "/orders/orderdetails/deleteitem/{orderListId}")
