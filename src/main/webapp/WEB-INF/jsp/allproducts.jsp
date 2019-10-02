@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,10 +45,13 @@
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
                         <form method="post" action="/orderitem">
-                            <input type="hidden" name="productId" value="${product.productId}">
-                            <input type="hidden" name="orderId" value="${order.orderId}">
+                            <c:if test="${not empty error}">
+                                <p id="panel">${error}</p>
+                            </c:if>
+                            <input type="hidden" name="productId" value="${product.productId}"/>
+                            <input type="hidden" name="orderId" value="${order.orderId}"/>
                             <label for="quantity">Number of items</label>
-                            <input type="number" name="quantity" min="0" id="quantity">
+                            <input type="number" name="quantity" min="0" id="quantity"/>
                             <input type="hidden" name="price" value="${product.price}">
                             <button type="submit" class="btn btn-primary">Add item to order</button>
                         </form>

@@ -64,19 +64,22 @@ public class OrderController {
     }
 
     @PostMapping(value = "/orderitem")
-    public String orderItem(@Param("productId") int productId, @Param("orderId") int orderId, @Param("quantity") int quantity, @Param("price") BigDecimal price){
+    public String orderItem(@Param("productId") int productId, @Param("orderId") int orderId, @Param("quantity") int quantity, @Param("price") BigDecimal price, Model model){
         List<OrderList> orderListItems = orderService.displayOrderList(orderId);
-        if(OtherUtils.containsItem(orderListItems, productId)){
+        int prQuantity = productService.getProduct(productId).getItemsNumber();
+        if((OtherUtils.containsItem(orderListItems, productId)) && (prQuantity >= quantity) ){
             BigDecimal summedPrice = price.multiply(new BigDecimal(quantity));
             OrderList orderList = orderService.getOrderListByProductId(productId);
             orderService.addExistingItem(summedPrice, quantity, orderList.getOrderListId());
             productService.subQuantity(quantity, productId);
             orderService.sumTotalPrice();
-        } else{
+        } else if((OtherUtils.containsItem(orderListItems, productId) == false) && (prQuantity >= quantity)){
             price.multiply(new BigDecimal(quantity));
             orderService.addItem(quantity, price, orderId, productId);
             productService.subQuantity(quantity, productId);
             orderService.sumTotalPrice();
+        } else{
+            model.addAttribute("error", "There isn't enough items in the magazine to order that amount");
         }
         return "redirect:/allproducts";
     }
