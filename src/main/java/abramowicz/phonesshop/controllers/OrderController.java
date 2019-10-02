@@ -64,7 +64,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/orderitem")
-    public String orderItem(@Param("productId") int productId, @Param("orderId") int orderId, @Param("quantity") int quantity, @Param("price") BigDecimal price, Model model){
+    public String orderItem(@Param("productId") int productId, @Param("orderId") int orderId, @Param("quantity") int quantity, @Param("price") BigDecimal price, final RedirectAttributes redirectAttributes){
         List<OrderList> orderListItems = orderService.displayOrderList(orderId);
         int prQuantity = productService.getProduct(productId).getItemsNumber();
         if((OtherUtils.containsItem(orderListItems, productId)) && (prQuantity >= quantity) ){
@@ -79,7 +79,7 @@ public class OrderController {
             productService.subQuantity(quantity, productId);
             orderService.sumTotalPrice();
         } else{
-            model.addAttribute("error", "There isn't enough items in the magazine to order that amount");
+            redirectAttributes.addFlashAttribute("error", "There isn't enough items in the magazine to order that amount");
         }
         return "redirect:/allproducts";
     }

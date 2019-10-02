@@ -17,6 +17,11 @@
         <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
+    <div class="alert alert-danger" style="align:center;margin:10px;" role="alert">
+    <c:if test="${not empty error}">
+        <c:out value="${error}" />
+    </c:if>
+    </div>
         <table class="table">
         <tbody>
         <c:forEach var="product" items="${productList}">
@@ -45,9 +50,6 @@
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
                         <form method="post" action="/orderitem">
-                            <c:if test="${not empty error}">
-                                <p id="panel">${error}</p>
-                            </c:if>
                             <input type="hidden" name="productId" value="${product.productId}"/>
                             <input type="hidden" name="orderId" value="${order.orderId}"/>
                             <label for="quantity">Number of items</label>

@@ -16,7 +16,7 @@
         <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
-    <div class="alert alert-danger" style="align:center;" role="alert">
+    <div class="alert alert-danger" style="align:center;margin:10px;" role="alert">
       Error! Page not found or cannot be reached right now
     </div>
     <%@include file="/WEB-INF/include/footer.app" %>
