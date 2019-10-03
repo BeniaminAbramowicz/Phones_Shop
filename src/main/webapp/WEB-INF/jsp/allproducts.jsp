@@ -17,9 +17,9 @@
         <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
-    <div class="alert alert-danger" style="align:center;margin:10px;" role="alert">
+    <div class="alert alert-danger" id="error" style="align:center;margin:10px;display:none;" role="alert">
     <c:if test="${not empty error}">
-        <c:out value="${error}" />
+        <p id="errtext">${error}</p>
     </c:if>
     </div>
         <table class="table">
@@ -68,5 +68,13 @@
 </main>
     <%@include file="/WEB-INF/include/footer.app" %>
 </wrapper>
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        var err = document.getElementById("errtext");
+        if(err !== null){
+            document.getElementById("error").style.display = "block";
+        }
+    })
+</script>
 </body>
 </html>
