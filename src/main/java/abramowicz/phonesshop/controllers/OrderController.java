@@ -90,13 +90,18 @@ public class OrderController {
         BigDecimal productPrice = product.getPrice();
         BigDecimal price = productPrice.multiply(new BigDecimal(quantity));
         redirectAttributes.addAttribute("orderId", orderId);
+        int delPosQuantity = orderList.getQuantity();
         if(quantity >= orderList.getQuantity()){
            orderService.removeFromOrder(orderListId);
            orderService.sumTotalPrice();
-        } else {
+           productService.addQuantity(delPosQuantity, productId);
+        } else if((quantity > 0) && (quantity < orderList.getQuantity())){
             orderService.subItemsInOrder(quantity, orderListId);
             orderService.subPriceInOrder(price, orderListId);
             orderService.sumTotalPrice();
+            productService.addQuantity(quantity, productId);
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Number of removed items can't be a negative value or 0");
         }
         return "redirect:/orders/orderdetails/{orderId}";
     }

@@ -17,11 +17,6 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserRepository userRepository){this.userRepository = userRepository;}
 
     @Override
-    public User displayUser() {
-        return userRepository.getUser();
-    }
-
-    @Override
     public User getUserByEmail(String email) {
         return userRepository.getUserByEmail(email);
     }

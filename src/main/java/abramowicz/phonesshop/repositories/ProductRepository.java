@@ -6,11 +6,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
+@Transactional
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query(value = "SELECT * FROM product p WHERE p.product_id=:productId", nativeQuery = true)
@@ -50,7 +52,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     void subQuantity(@Param("quantity") int quantity, @Param("productId") int productId);
 
     @Modifying
-    @Query(value = "UPDATE product p SET p.items_number=p.items_numer + :quantity WHERE p.product_id=:productId", nativeQuery = true)
+    @Query(value = "UPDATE product p SET p.items_number=p.items_number + :quantity WHERE p.product_id=:productId", nativeQuery = true)
     void addQuantity(@Param("quantity") int quantity, @Param("productId") int productId);
 
 }
