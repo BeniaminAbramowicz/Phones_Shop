@@ -19,8 +19,8 @@
     <div class="alert alert-danger" style="align:center;margin:10px;" role="alert">
       Error! Page not found or cannot be reached right now
     </div>
-    <%@include file="/WEB-INF/include/footer.app" %>
 </main>
+    <%@include file="/WEB-INF/include/footer.app" %>
 </wrapper>
 </body>
 </html>

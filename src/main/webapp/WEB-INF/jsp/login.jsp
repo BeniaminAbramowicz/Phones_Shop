@@ -16,7 +16,6 @@
         <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
-    <main class="container-fluid py-3 flex-fill">
     <div class="container">
     <div class="col-md-8 offset-2">
     <div class="card border-black rounded-0">
@@ -36,9 +35,8 @@
     </div>
     </div>
     </div>
-    </main>
-    <%@include file="/WEB-INF/include/footer.app" %>
 </main>
+    <%@include file="/WEB-INF/include/footer.app" %>
 </wrapper>
 </body>
 </html>

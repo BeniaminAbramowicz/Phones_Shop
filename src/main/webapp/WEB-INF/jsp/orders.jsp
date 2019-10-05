@@ -27,6 +27,7 @@
             <th scope="col">Order status</th>
             <th scope="col">Total price</th>
             <th scope="col">Order details</th>
+            <th scope="col">Close Order</th>
         </tr>
         </thead>
         <tbody>
@@ -41,12 +42,18 @@
                 <button type="submit" class="btn btn-success">Items list</button>
             </form>
             </td>
+            <td>
+            <form method="post" action="/orders/closeorder/${order.orderId}">
+                <input type="hidden" name="orderId" value="${order.orderId}">
+                <button type="submit" class="btn btn-danger">Close and send order</button>
+            </form>
+            </td>
         </tr>
         </c:forEach>
         </tbody>
     </table>
-    <%@include file="/WEB-INF/include/footer.app" %>
 </main>
+    <%@include file="/WEB-INF/include/footer.app" %>
 </wrapper>
 </body>
 </html>

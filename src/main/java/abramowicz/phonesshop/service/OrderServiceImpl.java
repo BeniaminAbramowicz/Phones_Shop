@@ -87,4 +87,9 @@ public class OrderServiceImpl implements OrderService {
     public OrderList getOrderListByProductId(int productId) {
         return orderListRepository.getOrderListByProduct_ProductId(productId);
     }
+
+    @Override
+    public void closeOrder(int orderId) {
+        orderRepository.closeOrder(orderId);
+    }
 }

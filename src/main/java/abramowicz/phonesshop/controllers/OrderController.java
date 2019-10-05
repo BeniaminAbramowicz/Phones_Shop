@@ -64,7 +64,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/orderitem")
-    public String orderItem(@Param("productId") int productId, @Param("orderId") int orderId, @Param("quantity") int quantity, @Param("price") BigDecimal price, final RedirectAttributes redirectAttributes){
+    public String orderItem(@Param("productId") int productId, @Param("orderId") int orderId, @Param("quantity") int quantity, @Param("price") BigDecimal price, RedirectAttributes redirectAttributes){
         List<OrderList> orderListItems = orderService.displayOrderList(orderId);
         int prQuantity = productService.getProduct(productId).getItemsNumber();
         if((OtherUtils.containsItem(orderListItems, productId)) && (prQuantity >= quantity) ){
@@ -105,5 +105,15 @@ public class OrderController {
         }
         return "redirect:/orders/orderdetails/{orderId}";
     }
+
+    @PostMapping(value = "/orders/closeorder/{orderId}")
+    public String closeOrder(@PathVariable("orderId") int orderId){
+        String username = UserUtilities.getLoggedUsername();
+        User user = userService.getUserByEmail(username);
+        String userId = Integer.toString(user.getUserId());
+        orderService.closeOrder(orderId);
+        return "redirect:/orders/" + userId;
+    }
+
 
 }

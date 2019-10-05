@@ -16,7 +16,7 @@
         <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
-    <div class="alert alert-danger" id="error"style="align:center;margin:10px;" role="alert">
+    <div class="alert alert-danger" id="error"style="align:center;margin:10px;display:none" role="alert">
         <c:if test="${not empty error}">
             <p id="errtext">${error}</p>
         </c:if>
@@ -24,7 +24,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope=""col">Product Name</th>
+            <th scope="col">Product Name</th>
             <th scope="col">Quantity</th>
             <th scope="col">Price</th>
             <th scope="col">Remove Items</th>
@@ -49,8 +49,8 @@
         </c:forEach>
         </tbody>
     </table>
-    <%@include file="/WEB-INF/include/footer.app" %>
 </main>
+    <%@include file="/WEB-INF/include/footer.app" %>
 </wrapper>
 <script>
     document.addEventListener("DOMContentLoaded", function(){
