@@ -110,19 +110,20 @@ public class OrderController {
             orderService.sumTotalPrice();
             productService.addQuantity(quantity, productId);
         } else {
-            redirectAttributes.addFlashAttribute("orderId", orderId);
             redirectAttributes.addFlashAttribute("error", "Number of removed items can't be a negative value or 0");
         }
+        redirectAttributes.addAttribute("orderId", orderId);
         return "redirect:/orders/orderdetails";
     }
 
     @PostMapping(value = "/orders/closeorder")
-    public String closeOrder(@Param("orderId") int orderId){
+    public String closeOrder(@Param("orderId") int orderId, RedirectAttributes redirectAttributes){
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
         String userId = Integer.toString(user.getUserId());
         orderService.closeOrder(orderId);
-        return "redirect:/orders/" + userId;
+        redirectAttributes.addAttribute("userId", userId);
+        return "redirect:/orders";
     }
 
 
