@@ -11,15 +11,21 @@
 <body>
 <wrapper class="d-flex flex-column">
 <main class="container-fluid py-3 flex-fill">
-    <input type="hidden" name="userId" value="${user.userId}">
     <div class="logo">
         <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
+    <div class="alert alert-danger" id="error" style="align:center;margin:10px;display:none;" role="alert">
+        <c:if test="${not empty error}">
+            <p id="errtext">${error}</p>
+        </c:if>
+    </div>
+    <sec:authorize access="hasRole('ROLE_USER')">
     <form method="post" action="/createorder" modelAttribute="order">
     <input type="hidden" name="userId" value="${user.userId}">
     <button type="submit" class="btn btn-success">Open new order</button>
     </form>
+    </sec:authorize>
     <table class="table">
         <thead>
         <tr>
@@ -37,13 +43,13 @@
             <td>${order.status}</td>
             <td>${order.totalPrice}</td>
             <td>
-            <form method="get" action="/orders/orderdetails/${order.orderId}">
+            <form method="get" action="/orders/orderdetails">
                 <input type="hidden" name="orderId" value="${order.orderId}">
                 <button type="submit" class="btn btn-success">Items list</button>
             </form>
             </td>
             <td>
-            <form method="post" action="/orders/closeorder/${order.orderId}"  onsubmit="return confirmClosing(this, '${pageContext.request.contextPath}/orders/closeorder/${order.orderId}')">
+            <form method="post" action="/orders/closeorder"  onsubmit="return confirmClosing(this, '${pageContext.request.contextPath}/orders/closeorder')">
                 <input type="hidden" name="orderId" value="${order.orderId}">
                 <button type="submit" class="btn btn-danger">Close and send order</button>
             </form>
@@ -56,6 +62,13 @@
     <%@include file="/WEB-INF/include/footer.app" %>
 </wrapper>
 <script>
+    document.addEventListener("DOMContentLoaded", function(){
+        var err = document.getElementById("errtext");
+        if(err !== null){
+            document.getElementById("error").style.display = "block";
+        }
+    })
+
     function confirmClosing(closeForm, closeUrl){
         if (confirm("You can't make any changes to order after closing it. Are you sure?")){
             closeForm.action = closeUrl;

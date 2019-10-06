@@ -30,9 +30,9 @@
           <a class="nav-link" href="${pageContext.request.contextPath}/addproducts">Add Product</a>
         </li>
       </sec:authorize>
-      <sec:authorize access="isAuthenticated()">
+      <sec:authorize access="hasRole('ROLE_USER')">
       <li class="nav-item">
-         <a class="nav-link" href="${pageContext.request.contextPath}/orders/${user.userId}">Orders</a>
+         <a class="nav-link" href="${pageContext.request.contextPath}/orders">Orders</a>
       </li>
       </sec:authorize>
     </ul>

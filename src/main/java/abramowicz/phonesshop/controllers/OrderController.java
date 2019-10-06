@@ -12,6 +12,9 @@ import abramowicz.phonesshop.utilities.OtherUtils;
 import abramowicz.phonesshop.utilities.UserUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,24 +40,30 @@ public class OrderController {
         this.productService = productService;
     }
 
-    @GetMapping(value = "/orders/{userId}")
-    public String displayOrders(Model model, @PathVariable("userId") int userId){
-        List<Order> orders = orderService.displayOrders(userId);
+    @GetMapping(value = "/orders")
+    public String displayOrders(Model model){
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
+        List<Order> orders = orderService.displayOrders(user.getUserId());
         model.addAttribute("user", user);
         model.addAttribute("orders", orders);
         return "orders";
     }
 
-    @GetMapping(value = "/orders/orderdetails/{orderId}")
-    public String displayOrderList(Model model, @PathVariable("orderId") int orderId){
-        List<OrderList> orderListItems = orderService.displayOrderList(orderId);
+    @GetMapping(value = "/orders/orderdetails")
+    public String displayOrderList(Model model, @Param("orderId") int orderId, RedirectAttributes redirectAttributes){
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
-        model.addAttribute("user", user);
-        model.addAttribute("orderListItems", orderListItems);
-        return "orderlist";
+        List<Order> orders = orderService.displayOrders(user.getUserId());
+        if(OtherUtils.userHasOrder(orders, orderId) == false){
+            redirectAttributes.addFlashAttribute("error", "Order with given id doesn't exists");
+            return "redirect:/orders";
+        } else {
+            List<OrderList> orderListItems = orderService.displayOrderList(orderId);
+            model.addAttribute("user", user);
+            model.addAttribute("orderListItems", orderListItems);
+            return "orderlist";
+        }
     }
 
     @PostMapping(value = "/createorder")
@@ -83,7 +92,7 @@ public class OrderController {
         }
         return "redirect:/allproducts";
     }
-    @PostMapping(value = "/orders/orderdetails/deleteitem/{orderListId}")
+    @PostMapping(value = "/orders/orderdetails/deleteitem")
     public String deleteItem(@Param("orderListId") int orderListId, int quantity, @Param("productId") int productId, RedirectAttributes redirectAttributes){
         OrderList orderList = orderService.getOrderListById(orderListId);
         Product product = productService.getProduct(productId);
@@ -101,13 +110,14 @@ public class OrderController {
             orderService.sumTotalPrice();
             productService.addQuantity(quantity, productId);
         } else {
+            redirectAttributes.addFlashAttribute("orderId", orderId);
             redirectAttributes.addFlashAttribute("error", "Number of removed items can't be a negative value or 0");
         }
-        return "redirect:/orders/orderdetails/" + orderId;
+        return "redirect:/orders/orderdetails";
     }
 
-    @PostMapping(value = "/orders/closeorder/{orderId}")
-    public String closeOrder(@PathVariable("orderId") int orderId){
+    @PostMapping(value = "/orders/closeorder")
+    public String closeOrder(@Param("orderId") int orderId){
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
         String userId = Integer.toString(user.getUserId());

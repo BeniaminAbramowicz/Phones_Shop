@@ -47,7 +47,7 @@
                     <button type="submit" class="btn btn-danger">Delete product</button>
                     </form>
                     </sec:authorize>
-                    <sec:authorize access="isAuthenticated()">
+                    <sec:authorize access="hasRole('ROLE_USER')">
                         <form method="post" action="/orderitem">
                             <input type="hidden" name="productId" value="${product.productId}"/>
                             <input type="hidden" name="orderId" value="${order.orderId}"/>

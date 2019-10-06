@@ -18,7 +18,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query(value = "INSERT INTO `order`(`order_id`, `status`, `user_id`, `total_price`) VALUES (NULL,'open',?,'0')", nativeQuery = true)
     void createOrder(@Param("userId") int userId);
 
-    @Query(value = "SELECT * FROM `order` WHERE user_id=:userId", nativeQuery = true)
+    @Query(value = "SELECT * FROM `order` o WHERE o.user_id=:userId", nativeQuery = true)
     List<Order> displayOrders(int userId);
 
     @Query(value = "SELECT * FROM `order` o INNER JOIN `user` u ON u.user_id = o.user_id WHERE u.email=:email AND o.status='open' ", nativeQuery = true)

@@ -40,7 +40,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderList> displayOrderList(int orderId) {
         return orderListRepository.displayOrderList(orderId);
-        //return orderListRepository.findAllByOrder_OrderId(orderId);
     }
 
     @Override

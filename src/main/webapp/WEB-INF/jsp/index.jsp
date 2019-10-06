@@ -15,7 +15,7 @@
         <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
-    <input type="hidden" name="userId" value="${user.userId}">
+    <input type="hidden" name="email" value="${user.email}">
 </main>
     <%@include file="/WEB-INF/include/footer.app" %>
 </wrapper>
