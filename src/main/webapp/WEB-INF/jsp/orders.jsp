@@ -43,7 +43,7 @@
             </form>
             </td>
             <td>
-            <form method="post" action="/orders/closeorder/${order.orderId}">
+            <form method="post" action="/orders/closeorder/${order.orderId}"  onsubmit="return confirmClosing(this, '${pageContext.request.contextPath}/orders/closeorder/${order.orderId}')">
                 <input type="hidden" name="orderId" value="${order.orderId}">
                 <button type="submit" class="btn btn-danger">Close and send order</button>
             </form>
@@ -55,5 +55,14 @@
 </main>
     <%@include file="/WEB-INF/include/footer.app" %>
 </wrapper>
+<script>
+    function confirmClosing(closeForm, closeUrl){
+        if (confirm("You can't make any changes to order after closing it. Are you sure?")){
+            closeForm.action = closeUrl;
+            return true;
+        }
+        return false;
+    }
+</script>
 </body>
 </html>

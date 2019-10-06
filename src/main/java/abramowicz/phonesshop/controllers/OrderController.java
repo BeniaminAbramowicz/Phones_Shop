@@ -84,12 +84,12 @@ public class OrderController {
         return "redirect:/allproducts";
     }
     @PostMapping(value = "/orders/orderdetails/deleteitem/{orderListId}")
-    public String deleteItem(@Param("orderListId") int orderListId, int quantity, @Param("productId") int productId, @Param("orderId") int orderId, RedirectAttributes redirectAttributes){
+    public String deleteItem(@Param("orderListId") int orderListId, int quantity, @Param("productId") int productId, RedirectAttributes redirectAttributes){
         OrderList orderList = orderService.getOrderListById(orderListId);
         Product product = productService.getProduct(productId);
         BigDecimal productPrice = product.getPrice();
         BigDecimal price = productPrice.multiply(new BigDecimal(quantity));
-        redirectAttributes.addAttribute("orderId", orderId);
+        String orderId = Integer.toString(orderList.getOrder().getOrderId());
         int delPosQuantity = orderList.getQuantity();
         if(quantity >= orderList.getQuantity()){
            orderService.removeFromOrder(orderListId);
@@ -103,7 +103,7 @@ public class OrderController {
         } else {
             redirectAttributes.addFlashAttribute("error", "Number of removed items can't be a negative value or 0");
         }
-        return "redirect:/orders/orderdetails/{orderId}";
+        return "redirect:/orders/orderdetails/" + orderId;
     }
 
     @PostMapping(value = "/orders/closeorder/{orderId}")
