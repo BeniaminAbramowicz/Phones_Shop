@@ -11,9 +11,10 @@ public interface OrderService {
     void createOrder(int userId);
     List<Order> displayOrders(int userId);
     List<OrderList> displayOrderList(int orderId);
+    Order getOrderById(int orderId);
     Order getOpenOrder(String email);
-    void addItem(int quantity, BigDecimal price, int orderId, int productId);
-    void sumTotalPrice();
+    void addItemToOrder(OrderList orderList);
+    void sumTotalPrice(int orderId);
     void removeFromOrder(int orderListId);
     OrderList getOrderListById(int orderListId);
     void subItemsInOrder(int quantity, int orderListId);
@@ -21,4 +22,5 @@ public interface OrderService {
     void addExistingItem(BigDecimal price, int quantity, int orderListId);
     OrderList getOrderListByProductId(int productId);
     void closeOrder(int orderId);
+    void resetOrderPrice(int orderId);
 }

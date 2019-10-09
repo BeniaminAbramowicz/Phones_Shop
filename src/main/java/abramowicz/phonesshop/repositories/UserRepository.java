@@ -10,6 +10,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    @Query(value = "SELECT * FROM `user` u WHERE u.email=:email", nativeQuery = true)
     User getUserByEmail(String email);
 }

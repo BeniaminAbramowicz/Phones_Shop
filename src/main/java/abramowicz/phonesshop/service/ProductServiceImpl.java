@@ -22,37 +22,17 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product getProduct(int productId) {
-        return productRepository.getProduct(productId);
+        return productRepository.getProductByProductId(productId);
+    }
+
+    @Override
+    public List<Product> getProductsByBrand(String brand) {
+        return productRepository.getProductsByBrand(brand);
     }
 
     @Override
     public List<Product> displayAllProducts() {
         return productRepository.displayAllProducts();
-    }
-
-    @Override
-    public List<Product> displaySamsungPhones(){
-        return productRepository.displaySamsungPhones();
-    }
-
-    @Override
-    public List<Product> displayXiaomiPhones(){
-        return productRepository.displayXiaomiPhones();
-    }
-
-    @Override
-    public List<Product> displayLgPhones() {
-        return productRepository.displayLgPhones();
-    }
-
-    @Override
-    public List<Product> displayApplePhones() {
-        return productRepository.displayApplePhones();
-    }
-
-    @Override
-    public List<Product> displayOneplusPhones() {
-        return productRepository.displayOneplusPhones();
     }
 
     @Override
@@ -67,7 +47,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void deleteProduct(int productId) {
-        productRepository.deleteProduct(productId);
+        productRepository.deleteProductByProductId(productId);
     }
 
     @Override

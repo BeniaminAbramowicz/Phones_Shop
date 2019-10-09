@@ -38,101 +38,25 @@ public class ProductController {
         this.orderService = orderService;
     }
 
-    @GetMapping(value = "/allproducts")
-    public String displayAllProducts(Model model){
-        List<Product> productList = productService.displayAllProducts();
+    @GetMapping(value = "/products/{brand}")
+    public String displayProductsBrand(@PathVariable String brand, Model model){
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
+        model.addAttribute("user", user);
         if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
             Order order = orderService.getOpenOrder(user.getEmail());
             model.addAttribute("order", order);
         }
-        model.addAttribute("user", user);
-        model.addAttribute("productList", productList);
-        return "allproducts";
-    }
-
-    @GetMapping(value = "/allproducts/samsung")
-    public String displaySamsung(Model model){
-        List<Product> productList = productService.displaySamsungPhones();
-        String username = UserUtilities.getLoggedUsername();
-        User user = userService.getUserByEmail(username);
-        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
-            Order order = orderService.getOpenOrder(user.getEmail());
-            model.addAttribute("order", order);
+        if(brand.equals("allproducts")){
+            List<Product> productList = productService.displayAllProducts();
+            model.addAttribute("productList", productList);
+        } else if(brand.equals("accessories")){
+            List<Product> productList = productService.displayAccessories();
+            model.addAttribute("productList", productList);
+        } else{
+            List<Product> productList = productService.getProductsByBrand(brand);
+            model.addAttribute("productList", productList);
         }
-        model.addAttribute("user", user);
-        model.addAttribute("productList", productList);
-        return "allproducts";
-    }
-
-    @GetMapping(value = "/allproducts/xiaomi")
-    public String displayXiaomi(Model model){
-        List<Product> productList = productService.displayXiaomiPhones();
-        String username = UserUtilities.getLoggedUsername();
-        User user = userService.getUserByEmail(username);
-        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
-            Order order = orderService.getOpenOrder(user.getEmail());
-            model.addAttribute("order", order);
-        }
-        model.addAttribute("user", user);
-        model.addAttribute("productList", productList);
-        return "allproducts";
-    }
-
-    @GetMapping(value = "/allproducts/lg")
-    public String displayLg(Model model){
-        List<Product> productList = productService.displayLgPhones();
-        String username = UserUtilities.getLoggedUsername();
-        User user = userService.getUserByEmail(username);
-        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
-            Order order = orderService.getOpenOrder(user.getEmail());
-            model.addAttribute("order", order);
-        }
-        model.addAttribute("user", user);
-        model.addAttribute("productList", productList);
-        return "allproducts";
-    }
-
-    @GetMapping(value = "/allproducts/apple")
-    public String displayApple(Model model){
-        List<Product> productList = productService.displayApplePhones();
-        String username = UserUtilities.getLoggedUsername();
-        User user = userService.getUserByEmail(username);
-        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
-            Order order = orderService.getOpenOrder(user.getEmail());
-            model.addAttribute("order", order);
-        }
-        model.addAttribute("user", user);
-        model.addAttribute("productList", productList);
-        return "allproducts";
-    }
-
-    @GetMapping(value = "/allproducts/oneplus")
-    public String displayOneplus(Model model){
-        List<Product> productList = productService.displayOneplusPhones();
-        String username = UserUtilities.getLoggedUsername();
-        User user = userService.getUserByEmail(username);
-        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
-            Order order = orderService.getOpenOrder(user.getEmail());
-            model.addAttribute("order", order);
-        }
-        model.addAttribute("user", user);
-        model.addAttribute("productList", productList);
-        return "allproducts";
-    }
-
-    @GetMapping(value = "/allproducts/accessories")
-    public String displayAccessories(Model model){
-        List<Product> productList = productService.displayAccessories();
-        String username = UserUtilities.getLoggedUsername();
-        User user = userService.getUserByEmail(username);
-        if(!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)){
-            Order order = orderService.getOpenOrder(user.getEmail());
-            model.addAttribute("order", order);
-        }
-        model.addAttribute("user", user);
-        model.addAttribute("productList", productList);
         return "allproducts";
     }
 
@@ -155,7 +79,7 @@ public class ProductController {
     @PostMapping(value = "/allproducts/deleteproduct/{productId}")
     public String deleteProduct(@Param("productId") int productId){
         productService.deleteProduct(productId);
-        return "redirect:/allproducts";
+        return "redirect:/products/allproducts";
     }
 
     @GetMapping(value = "/allproducts/editproduct/{productId}")
@@ -171,7 +95,7 @@ public class ProductController {
     @PostMapping(value = "/edit")
     public String editProduct(@Param("name") String name, @Param("description") String description, @Param("price") BigDecimal price, @Param("itemsNumber") int itemsNumber, @Param("picture") String picture, @Param("isAccessory") Boolean isAccessory, @Param("productId") int productId){
         productService.editProduct(name, description, price, itemsNumber, picture, isAccessory, productId);
-        return "redirect:/allproducts";
+        return "redirect:/products/allproducts";
     }
 
 }

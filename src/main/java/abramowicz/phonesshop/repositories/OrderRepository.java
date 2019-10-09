@@ -14,22 +14,26 @@ import java.util.List;
 @Transactional
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
+    Order getOrderByOrderId(int orderId);
+
     @Modifying
     @Query(value = "INSERT INTO `order`(`order_id`, `status`, `user_id`, `total_price`) VALUES (NULL,'open',?,'0')", nativeQuery = true)
     void createOrder(@Param("userId") int userId);
 
-    @Query(value = "SELECT * FROM `order` o WHERE o.user_id=:userId", nativeQuery = true)
-    List<Order> displayOrders(int userId);
+    List<Order> getOrdersByUserUserId(int userId);
 
-    @Query(value = "SELECT * FROM `order` o INNER JOIN `user` u ON u.user_id = o.user_id WHERE u.email=:email AND o.status='open' ", nativeQuery = true)
+    @Query(value = "SELECT o FROM Order o INNER JOIN o.user WHERE email=:email AND o.status='open'")
     Order getOpenOrder(String email);
 
     @Modifying
-    @Query(value = "UPDATE `order` o INNER JOIN (SELECT order_id, SUM(price) 'sumu' FROM order_list GROUP BY order_id) ol ON o.order_id=ol.order_id SET o.total_price = ol.sumu", nativeQuery = true)
-    void sumTotalPrice();
+    @Query(value = "UPDATE `order` o INNER JOIN (SELECT order_id, SUM(price) 'sumu' FROM order_list GROUP BY order_id) ol ON o.order_id=ol.order_id SET o.total_price = ol.sumu WHERE o.order_id=:orderId", nativeQuery = true)
+    void sumTotalPrice(int orderId);
 
     @Modifying
-    //@Query(value = "UPDATE `order` o SET o.status = 'closed' WHERE o.order_id=:orderId", nativeQuery = true)
+    @Query(value = "UPDATE Order SET totalPrice = 0 WHERE orderId=:orderId")
+    void resetOrderPrice(int orderId);
+
+    @Modifying
     @Query(value = "UPDATE Order o SET o.status = 'closed' WHERE o.orderId=:orderId")
     void closeOrder(int orderId);
 

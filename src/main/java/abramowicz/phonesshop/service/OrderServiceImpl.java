@@ -34,12 +34,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> displayOrders(int userId) {
-        return orderRepository.displayOrders(userId);
+        return orderRepository.getOrdersByUserUserId(userId);
     }
 
     @Override
     public List<OrderList> displayOrderList(int orderId) {
-        return orderListRepository.displayOrderList(orderId);
+        return orderListRepository.findAllByOrder_OrderId(orderId);
+    }
+
+    @Override
+    public Order getOrderById(int orderId) {
+        return orderRepository.getOrderByOrderId(orderId);
     }
 
     @Override
@@ -48,18 +53,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void addItem(int quantity, BigDecimal price, int orderId, int productId) {
-        orderListRepository.addItem(quantity, price, orderId, productId);
-    }
-
-    @Override
-    public void sumTotalPrice() {
-        orderRepository.sumTotalPrice();
+    public void sumTotalPrice(int orderId) {
+        orderRepository.sumTotalPrice(orderId);
     }
 
     @Override
     public void removeFromOrder(int orderListId) {
-        orderListRepository.deleteItemFromOrder(orderListId);
+        orderListRepository.deleteOrderListByOrderListId(orderListId);
     }
 
     @Override
@@ -90,5 +90,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void closeOrder(int orderId) {
         orderRepository.closeOrder(orderId);
+    }
+
+    @Override
+    public void resetOrderPrice(int orderId) {
+        orderRepository.resetOrderPrice(orderId);
+    }
+
+    @Override
+    public void addItemToOrder(OrderList orderList) {
+        orderListRepository.save(orderList);
     }
 }

@@ -22,6 +22,14 @@ public class Product {
     @NotNull
     private String name;
 
+    @Column(name = "brand")
+    @NotNull
+    private String brand;
+
+    @Column(name = "model")
+    @NotNull
+    private String model;
+
     @Column(name = "price")
     @NotNull
     private BigDecimal price;
@@ -98,5 +106,21 @@ public class Product {
 
     public void setAccessory(Boolean accessory) {
         isAccessory = accessory;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 }

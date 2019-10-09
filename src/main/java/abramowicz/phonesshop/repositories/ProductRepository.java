@@ -15,44 +15,28 @@ import java.util.List;
 @Transactional
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    @Query(value = "SELECT * FROM product p WHERE p.product_id=:productId", nativeQuery = true)
-    Product getProduct(int productId);
+    Product getProductByProductId(int productId);
 
-    @Query(value = "SELECT * FROM product ORDER BY name", nativeQuery = true)
+    List<Product> getProductsByBrand(String brand);
+
+    @Query(value = "SELECT p FROM Product p ORDER BY name")
     List<Product> displayAllProducts();
 
-    @Query(value = "SELECT * FROM product p WHERE p.name LIKE 'Samsung%' ", nativeQuery = true)
-    List<Product> displaySamsungPhones();
-
-    @Query(value = "SELECT * FROM product p WHERE p.name LIKE 'Xiaomi%' ", nativeQuery = true)
-    List<Product> displayXiaomiPhones();
-
-    @Query(value = "SELECT * FROM product p WHERE p.name LIKE 'LG%' ", nativeQuery = true)
-    List<Product> displayLgPhones();
-
-    @Query(value = "SELECT * FROM product p WHERE p.name LIKE 'iPhone%' ", nativeQuery = true)
-    List<Product> displayApplePhones();
-
-    @Query(value = "SELECT * FROM product p WHERE p.name LIKE 'OnePlus%' ", nativeQuery = true)
-    List<Product> displayOneplusPhones();
-
-    @Query(value = "SELECT * FROM product p WHERE p.is_accessory = 1", nativeQuery = true)
+    @Query(value = "SELECT p FROM Product p WHERE p.isAccessory = 1")
     List<Product> displayAccessories();
 
-    @Modifying
-    @Query(value = "DELETE FROM product WHERE product_id=:productId", nativeQuery = true)
-    void deleteProduct(int productId);
+    void deleteProductByProductId(int productId);
 
     @Modifying
-    @Query(value = "UPDATE product p SET p.name=:name, p.description=:description, p.price=:price, p.items_number=:itemsNumber, p.picture=:picture, p.is_accessory=:isAccessory WHERE p.product_id=:productId", nativeQuery = true)
+    @Query(value = "UPDATE Product p SET p.name=:name, p.description=:description, p.price=:price, p.itemsNumber=:itemsNumber, p.picture=:picture, p.isAccessory=:isAccessory WHERE p.productId=:productId")
     void editProduct(@Param("name") String name, @Param("description") String description, @Param("price") BigDecimal price, @Param("itemsNumber") int itemsNumber, @Param("picture") String picture, @Param("isAccessory") Boolean isAccessory, @Param("productId") int productId);
 
     @Modifying
-    @Query(value = "UPDATE product p SET p.items_number=p.items_number - :quantity WHERE p.product_id=:productId", nativeQuery = true)
+    @Query(value = "UPDATE Product p SET p.itemsNumber=p.itemsNumber - :quantity WHERE p.productId=:productId")
     void subQuantity(@Param("quantity") int quantity, @Param("productId") int productId);
 
     @Modifying
-    @Query(value = "UPDATE product p SET p.items_number=p.items_number + :quantity WHERE p.product_id=:productId", nativeQuery = true)
+    @Query(value = "UPDATE Product p SET p.itemsNumber=p.itemsNumber + :quantity WHERE p.productId=:productId")
     void addQuantity(@Param("quantity") int quantity, @Param("productId") int productId);
 
 }

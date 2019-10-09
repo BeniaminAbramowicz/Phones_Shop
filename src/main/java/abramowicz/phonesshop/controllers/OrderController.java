@@ -12,13 +12,9 @@ import abramowicz.phonesshop.utilities.OtherUtils;
 import abramowicz.phonesshop.utilities.UserUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -81,16 +77,21 @@ public class OrderController {
             OrderList orderList = orderService.getOrderListByProductId(productId);
             orderService.addExistingItem(summedPrice, quantity, orderList.getOrderListId());
             productService.subQuantity(quantity, productId);
-            orderService.sumTotalPrice();
+            orderService.sumTotalPrice(orderId);
         } else if((OtherUtils.containsItem(orderListItems, productId) == false) && (prQuantity >= quantity)){
-            price.multiply(new BigDecimal(quantity));
-            orderService.addItem(quantity, price, orderId, productId);
+            BigDecimal pricem = price.multiply(new BigDecimal(quantity));
+            OrderList orderList = new OrderList();
+            orderList.setOrder(orderService.getOrderById(orderId));
+            orderList.setPrice(pricem);
+            orderList.setQuantity(quantity);
+            orderList.setProduct(productService.getProduct(productId));
+            orderService.addItemToOrder(orderList);
             productService.subQuantity(quantity, productId);
-            orderService.sumTotalPrice();
+            orderService.sumTotalPrice(orderId);
         } else{
             redirectAttributes.addFlashAttribute("error", "There isn't enough items in the magazine to order that amount");
         }
-        return "redirect:/allproducts";
+        return "redirect:/products/allproducts";
     }
     @PostMapping(value = "/orders/orderdetails/deleteitem")
     public String deleteItem(@Param("orderListId") int orderListId, int quantity, @Param("productId") int productId, RedirectAttributes redirectAttributes){
@@ -99,15 +100,21 @@ public class OrderController {
         BigDecimal productPrice = product.getPrice();
         BigDecimal price = productPrice.multiply(new BigDecimal(quantity));
         String orderId = Integer.toString(orderList.getOrder().getOrderId());
+        int idOrder = orderList.getOrder().getOrderId();
         int delPosQuantity = orderList.getQuantity();
         if(quantity >= orderList.getQuantity()){
            orderService.removeFromOrder(orderListId);
-           orderService.sumTotalPrice();
+           List<OrderList> orderItems = orderService.displayOrderList(idOrder);
+           if(orderItems.isEmpty()){
+               orderService.resetOrderPrice(idOrder);
+           } else{
+               orderService.sumTotalPrice(idOrder);
+           }
            productService.addQuantity(delPosQuantity, productId);
         } else if((quantity > 0) && (quantity < orderList.getQuantity())){
             orderService.subItemsInOrder(quantity, orderListId);
             orderService.subPriceInOrder(price, orderListId);
-            orderService.sumTotalPrice();
+            orderService.sumTotalPrice(idOrder);
             productService.addQuantity(quantity, productId);
         } else {
             redirectAttributes.addFlashAttribute("error", "Number of removed items can't be a negative value or 0");
