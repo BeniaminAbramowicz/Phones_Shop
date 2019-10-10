@@ -26,7 +26,7 @@
     <button type="submit" class="btn btn-success">Open new order</button>
     </form>
     </sec:authorize>
-    <table class="table">
+    <table class="table" id="order">
         <thead>
         <tr>
             <th scope="col">Order ID</th>
@@ -51,7 +51,7 @@
             <td>
             <form method="post" action="/orders/closeorder"  onsubmit="return confirmClosing(this, '${pageContext.request.contextPath}/orders/closeorder')">
                 <input type="hidden" name="orderId" value="${order.orderId}">
-                <button type="submit" class="btn btn-danger">Close and send order</button>
+                <button type="submit" class="btn btn-danger" id="closeorder" style="display:block;">Close and send order</button>
             </form>
             </td>
         </tr>
@@ -66,6 +66,15 @@
         var err = document.getElementById("errtext");
         if(err !== null){
             document.getElementById("error").style.display = "block";
+        }
+        var table = document.getElementById("order");
+        var tbody = table.getElementsByTagName("tbody");
+        var tr = tbody[0].getElementsByTagName("tr");
+        var buttons = tbody[0].getElementsByClassName("btn btn-danger");
+        for(var i = 0; i < tr.length; i++){
+            if(tr[i].getElementsByTagName("td")[1].innerHTML === "closed"){
+                buttons[i].style.display = "none";
+            }
         }
     })
 

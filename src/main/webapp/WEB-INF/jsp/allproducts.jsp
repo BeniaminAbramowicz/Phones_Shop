@@ -11,7 +11,6 @@
 <body>
 <wrapper class="d-flex flex-column">
 <main class="container-fluid py-3 flex-fill">
-    <input type="hidden" name="userId" value="${user.userId}">
     <div class="logo">
         <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
     </div>
@@ -50,7 +49,6 @@
                     <sec:authorize access="hasRole('ROLE_USER')">
                         <form method="post" action="/orderitem">
                             <input type="hidden" name="productId" value="${product.productId}"/>
-                            <input type="hidden" name="orderId" value="${order.orderId}"/>
                             <label for="quantity">Number of items</label>
                             <input type="number" name="quantity" min="0" id="quantity"/>
                             <input type="hidden" name="price" value="${product.price}">

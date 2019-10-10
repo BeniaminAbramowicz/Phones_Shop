@@ -69,25 +69,31 @@ public class OrderController {
     }
 
     @PostMapping(value = "/orderitem")
-    public String orderItem(@Param("productId") int productId, @Param("orderId") int orderId, @Param("quantity") int quantity, @Param("price") BigDecimal price, RedirectAttributes redirectAttributes){
-        List<OrderList> orderListItems = orderService.displayOrderList(orderId);
+    public String orderItem(@Param("productId") int productId, @Param("quantity") int quantity, @Param("price") BigDecimal price, RedirectAttributes redirectAttributes){
+        String email = UserUtilities.getLoggedUsername();
+        User user = userService.getUserByEmail(email);
+        if(orderService.getOpenOrder(email) == null){
+            orderService.createOrder(user.getUserId());
+        }
+        Order order = orderService.getOpenOrder(email);
+        List<OrderList> orderListItems = orderService.displayOrderList(order.getOrderId());
         int prQuantity = productService.getProduct(productId).getItemsNumber();
         if((OtherUtils.containsItem(orderListItems, productId)) && (prQuantity >= quantity) ){
             BigDecimal summedPrice = price.multiply(new BigDecimal(quantity));
             OrderList orderList = orderService.getOrderListByProductId(productId);
             orderService.addExistingItem(summedPrice, quantity, orderList.getOrderListId());
             productService.subQuantity(quantity, productId);
-            orderService.sumTotalPrice(orderId);
+            orderService.sumTotalPrice(order.getOrderId());
         } else if((OtherUtils.containsItem(orderListItems, productId) == false) && (prQuantity >= quantity)){
             BigDecimal pricem = price.multiply(new BigDecimal(quantity));
             OrderList orderList = new OrderList();
-            orderList.setOrder(orderService.getOrderById(orderId));
+            orderList.setOrder(orderService.getOrderById(order.getOrderId()));
             orderList.setPrice(pricem);
             orderList.setQuantity(quantity);
             orderList.setProduct(productService.getProduct(productId));
             orderService.addItemToOrder(orderList);
             productService.subQuantity(quantity, productId);
-            orderService.sumTotalPrice(orderId);
+            orderService.sumTotalPrice(order.getOrderId());
         } else{
             redirectAttributes.addFlashAttribute("error", "There isn't enough items in the magazine to order that amount");
         }
@@ -128,9 +134,14 @@ public class OrderController {
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
         String userId = Integer.toString(user.getUserId());
-        orderService.closeOrder(orderId);
         redirectAttributes.addAttribute("userId", userId);
-        return "redirect:/orders";
+        if(orderService.getOrderById(orderId).getStatus() == "closed"){
+            redirectAttributes.addFlashAttribute("closederror", "This order has been already closed");
+            return "redirect:/orders";
+        } else {
+            orderService.closeOrder(orderId);
+            return "redirect:/orders";
+        }
     }
 
 
