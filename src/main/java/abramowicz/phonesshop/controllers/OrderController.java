@@ -51,21 +51,15 @@ public class OrderController {
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
         List<Order> orders = orderService.displayOrders(user.getUserId());
+        model.addAttribute("user", user);
         if(OtherUtils.userHasOrder(orders, orderId) == false){
             redirectAttributes.addFlashAttribute("error", "Order with given id doesn't exists");
             return "redirect:/orders";
         } else {
             List<OrderList> orderListItems = orderService.displayOrderList(orderId);
-            model.addAttribute("user", user);
             model.addAttribute("orderListItems", orderListItems);
             return "orderlist";
         }
-    }
-
-    @PostMapping(value = "/createorder")
-    public String createOrder(@Param("userId") int userId){
-        orderService.createOrder(userId);
-        return "redirect:/orders";
     }
 
     @PostMapping(value = "/orderitem")
@@ -105,22 +99,21 @@ public class OrderController {
         Product product = productService.getProduct(productId);
         BigDecimal productPrice = product.getPrice();
         BigDecimal price = productPrice.multiply(new BigDecimal(quantity));
-        String orderId = Integer.toString(orderList.getOrder().getOrderId());
-        int idOrder = orderList.getOrder().getOrderId();
+        int orderId = orderList.getOrder().getOrderId();
         int delPosQuantity = orderList.getQuantity();
         if(quantity >= orderList.getQuantity()){
            orderService.removeFromOrder(orderListId);
-           List<OrderList> orderItems = orderService.displayOrderList(idOrder);
+           List<OrderList> orderItems = orderService.displayOrderList(orderId);
            if(orderItems.isEmpty()){
-               orderService.resetOrderPrice(idOrder);
+               orderService.resetOrderPrice(orderId);
            } else{
-               orderService.sumTotalPrice(idOrder);
+               orderService.sumTotalPrice(orderId);
            }
            productService.addQuantity(delPosQuantity, productId);
         } else if((quantity > 0) && (quantity < orderList.getQuantity())){
             orderService.subItemsInOrder(quantity, orderListId);
             orderService.subPriceInOrder(price, orderListId);
-            orderService.sumTotalPrice(idOrder);
+            orderService.sumTotalPrice(orderId);
             productService.addQuantity(quantity, productId);
         } else {
             redirectAttributes.addFlashAttribute("error", "Number of removed items can't be a negative value or 0");
@@ -131,12 +124,8 @@ public class OrderController {
 
     @PostMapping(value = "/orders/closeorder")
     public String closeOrder(@Param("orderId") int orderId, RedirectAttributes redirectAttributes){
-        String username = UserUtilities.getLoggedUsername();
-        User user = userService.getUserByEmail(username);
-        String userId = Integer.toString(user.getUserId());
-        redirectAttributes.addAttribute("userId", userId);
-        if(orderService.getOrderById(orderId).getStatus() == "closed"){
-            redirectAttributes.addFlashAttribute("closederror", "This order has been already closed");
+        if(orderService.getOrderById(orderId).getStatus().equals("closed")){
+            redirectAttributes.addFlashAttribute("error", "This order has already been closed");
             return "redirect:/orders";
         } else {
             orderService.closeOrder(orderId);

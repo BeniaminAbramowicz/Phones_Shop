@@ -37,7 +37,7 @@
                 <td>${orderList.quantity}</td>
                 <td>${orderList.price}</td>
                 <td>
-                    <form method="post" action="/orders/orderdetails/deleteitem">
+                    <form method="post" action="/orders/orderdetails/deleteitem" onsubmit="return confirmClosing(this, '${pageContext.request.contextPath}/orders/orderdetails/deleteitem')">
                         <input type="hidden" name="productId" value="${orderList.product.productId}">
                         <input type="hidden" name="orderListId" value="${orderList.orderListId}">
                         <input type="hidden" name="orderId" value="${orderList.order.orderId}">
@@ -59,6 +59,14 @@
             document.getElementById("error").style.display = "block";
         }
     })
+
+    function confirmClosing(closeForm, closeUrl){
+        if (confirm("Are you sure about removing these items from order?")){
+            closeForm.action = closeUrl;
+            return true;
+        }
+        return false;
+    }
 </script>
 </body>
 </html>

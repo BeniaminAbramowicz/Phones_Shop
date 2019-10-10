@@ -46,7 +46,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/allproducts/editproduct/*").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/edit").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/orders/*").access("isAuthenticated()")
-                .antMatchers("/createorder").access("isAuthenticated()")
                 .antMatchers("/orderitem").access("isAuthenticated()")
                 .and().csrf().disable()
                 .formLogin()

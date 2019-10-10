@@ -20,12 +20,6 @@
             <p id="errtext">${error}</p>
         </c:if>
     </div>
-    <sec:authorize access="hasRole('ROLE_USER')">
-    <form method="post" action="/createorder" modelAttribute="order">
-    <input type="hidden" name="userId" value="${user.userId}">
-    <button type="submit" class="btn btn-success">Open new order</button>
-    </form>
-    </sec:authorize>
     <table class="table" id="order">
         <thead>
         <tr>
