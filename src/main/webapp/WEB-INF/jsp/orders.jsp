@@ -51,13 +51,13 @@
             <td>
             <form method="post" action="/orders/closeorder"  onsubmit="return confirmClosing(this, '${pageContext.request.contextPath}/orders/closeorder')">
                 <input type="hidden" name="orderId" value="${order.orderId}">
-                <button type="submit" class="btn btn-danger" style="display:block;">Close and send order</button>
+                <button type="submit" class="btn btn-danger" style="display:none;">Close and send order</button>
             </form>
             </td>
             </sec:authorize>
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <td>
-                    <form method="post" action="/manageorders/changestatus">
+                    <form method="post" action="/manageorders/changestatus" class="statusform" style="display:none;">
                         <input type="hidden" name="orderId" value="${order.orderId}">
                         <select class="form-control-sm span3" name="status">
                             <option value="${enums[0]}">${enums[0]}</option>
@@ -80,13 +80,25 @@
         if(err !== null){
             document.getElementById("error").style.display = "block";
         }
-        var table = document.getElementById("order");
-        var tbody = table.getElementsByTagName("tbody");
-        var tr = tbody[0].getElementsByTagName("tr");
-        var buttons = tbody[0].getElementsByClassName("btn btn-danger");
-        for(var i = 0; i < tr.length; i++){
-            if(tr[i].getElementsByTagName("td")[1].innerHTML === "CLOSED"){
-                buttons[i].style.display = "none";
+        if(window.location.href === "http://localhost:8080/orders") {
+            var table = document.getElementById("order");
+            var tbody = table.getElementsByTagName("tbody");
+            var tr = tbody[0].getElementsByTagName("tr");
+            var buttons = tbody[0].getElementsByClassName("btn btn-danger");
+            for (var i = 0; i < tr.length; i++) {
+                if (tr[i].getElementsByTagName("td")[1].innerHTML === "OPEN") {
+                    buttons[i].style.display = "block";
+                }
+            }
+        } else if(window.location.href === "http://localhost:8080/manageorders"){
+            var tablead = document.getElementById("order");
+            var tbodyad = tablead.getElementsByTagName("tbody");
+            var trad = tbodyad[0].getElementsByTagName("tr");
+            var changeform = tbodyad[0].getElementsByClassName("statusform");
+            for (var i = 0; i < trad.length; i++) {
+                if (trad[i].getElementsByTagName("td")[1].innerHTML === "CLOSED") {
+                    changeform[i].style.display = "inline-block";
+                }
             }
         }
     })
