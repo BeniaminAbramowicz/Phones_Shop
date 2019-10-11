@@ -5,6 +5,7 @@ import abramowicz.phonesshop.entities.Order;
 import abramowicz.phonesshop.entities.OrderList;
 import abramowicz.phonesshop.entities.Product;
 import abramowicz.phonesshop.entities.User;
+import abramowicz.phonesshop.entities.enums.OrderStatus;
 import abramowicz.phonesshop.service.OrderService;
 import abramowicz.phonesshop.service.ProductService;
 import abramowicz.phonesshop.service.UserService;
@@ -97,7 +98,7 @@ public class OrderController {
     public String deleteItem(@Param("orderListId") int orderListId, int quantity, @Param("productId") int productId, RedirectAttributes redirectAttributes){
         OrderList orderList = orderService.getOrderListById(orderListId);
         int orderId = orderList.getOrder().getOrderId();
-        if(orderList.getOrder().getStatus().equals("closed")){
+        if(orderList.getOrder().getStatus() == OrderStatus.CLOSED){
             redirectAttributes.addFlashAttribute("error", "You can't remove items from closed order");
             redirectAttributes.addAttribute("orderId", orderId);
             return "redirect:/orders/orderdetails";
@@ -130,7 +131,7 @@ public class OrderController {
 
     @PostMapping(value = "/orders/closeorder")
     public String closeOrder(@Param("orderId") int orderId, RedirectAttributes redirectAttributes){
-        if(orderService.getOrderById(orderId).getStatus().equals("closed")){
+        if(orderService.getOrderById(orderId).getStatus() == OrderStatus.CLOSED){
             redirectAttributes.addFlashAttribute("error", "This order has already been closed");
             return "redirect:/orders";
         } else {

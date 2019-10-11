@@ -34,7 +34,7 @@
         <c:forEach var="order" items="${orders}">
         <tr>
             <td>${order.orderId}</td>
-            <td>${order.status}</td>
+            <td style="text-transform:lowercase">${order.status}</td>
             <td>${order.totalPrice}</td>
             <td>
             <form method="get" action="/orders/orderdetails">
@@ -66,7 +66,7 @@
         var tr = tbody[0].getElementsByTagName("tr");
         var buttons = tbody[0].getElementsByClassName("btn btn-danger");
         for(var i = 0; i < tr.length; i++){
-            if(tr[i].getElementsByTagName("td")[1].innerHTML === "closed"){
+            if(tr[i].getElementsByTagName("td")[1].innerHTML === "CLOSED"){
                 buttons[i].style.display = "none";
             }
         }

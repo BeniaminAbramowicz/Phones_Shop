@@ -17,12 +17,12 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     Order getOrderByOrderId(int orderId);
 
     @Modifying
-    @Query(value = "INSERT INTO `order`(`order_id`, `status`, `user_id`, `total_price`) VALUES (NULL,'open',?,'0')", nativeQuery = true)
+    @Query(value = "INSERT INTO `order`(`order_id`, `status`, `user_id`, `total_price`) VALUES (NULL,UPPER('open'),?,'0')", nativeQuery = true)
     void createOrder(@Param("userId") int userId);
 
     List<Order> getOrdersByUserUserId(int userId);
 
-    @Query(value = "SELECT o FROM Order o INNER JOIN o.user WHERE email=:email AND o.status='open'")
+    @Query(value = "SELECT o FROM Order o INNER JOIN o.user WHERE email=:email AND o.status=upper('open')")
     Order getOpenOrder(String email);
 
     @Modifying
@@ -34,7 +34,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     void resetOrderPrice(int orderId);
 
     @Modifying
-    @Query(value = "UPDATE Order o SET o.status = 'closed' WHERE o.orderId=:orderId")
+    @Query(value = "UPDATE Order o SET o.status = upper('closed') WHERE o.orderId=:orderId")
     void closeOrder(int orderId);
 
 

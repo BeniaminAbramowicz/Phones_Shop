@@ -1,11 +1,9 @@
 package abramowicz.phonesshop.entities;
 
-
+import abramowicz.phonesshop.entities.enums.OrderStatus;
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Entity
@@ -22,8 +20,8 @@ public class Order {
 
     @Column(name = "status")
     @NotNull
-    @Size(max = 45)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     @Column(name = "total_price")
     @NotNull
@@ -45,11 +43,11 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public String getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 
