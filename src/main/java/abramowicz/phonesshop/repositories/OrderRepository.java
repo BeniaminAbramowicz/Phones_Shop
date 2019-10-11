@@ -27,7 +27,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query(value = "UPDATE Order o SET o.status=:status WHERE o.orderId=:orderId")
     void changeOrderStatus(int orderId, OrderStatus status);
 
-    @Query(value = "SELECT o FROM Order o WHERE status IN(upper('closed'), upper('fulfilled'), upper('cancelled'))")
+    @Query(value = "SELECT o FROM Order o WHERE status IN(upper('closed'), upper('realized'), upper('cancelled'))")
     List<Order> getOrdersForAdmin();
 
     @Query(value = "SELECT o FROM Order o INNER JOIN o.user WHERE email=:email AND o.status=upper('open')")
