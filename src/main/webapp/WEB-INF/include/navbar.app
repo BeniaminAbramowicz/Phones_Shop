@@ -35,6 +35,11 @@
          <a class="nav-link" href="${pageContext.request.contextPath}/orders">Orders</a>
       </li>
       </sec:authorize>
+      <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <li class="nav-item">
+               <a class="nav-link" href="${pageContext.request.contextPath}/manageorders">Manage Orders</a>
+            </li>
+      </sec:authorize>
     </ul>
   </div>
   <ul class="navbar-inner navbar-nav">

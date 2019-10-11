@@ -3,6 +3,6 @@ package abramowicz.phonesshop.entities.enums;
 public enum OrderStatus {
     OPEN,
     CLOSED,
-    FULLFILLED,
+    FULFILLED,
     CANCELLED
 }

@@ -1,6 +1,7 @@
 package abramowicz.phonesshop.repositories;
 
 import abramowicz.phonesshop.entities.Order;
+import abramowicz.phonesshop.entities.enums.OrderStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -22,6 +23,13 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     List<Order> getOrdersByUserUserId(int userId);
 
+    @Modifying
+    @Query(value = "UPDATE Order o SET o.status=:status WHERE o.orderId=:orderId")
+    void changeOrderStatus(int orderId, OrderStatus status);
+
+    @Query(value = "SELECT o FROM Order o WHERE status IN(upper('closed'), upper('fulfilled'), upper('cancelled'))")
+    List<Order> getOrdersForAdmin();
+
     @Query(value = "SELECT o FROM Order o INNER JOIN o.user WHERE email=:email AND o.status=upper('open')")
     Order getOpenOrder(String email);
 
@@ -30,7 +38,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     void sumTotalPrice(int orderId);
 
     @Modifying
-    @Query(value = "UPDATE Order SET totalPrice = 0 WHERE orderId=:orderId")
+    @Query(value = "UPDATE Order o SET o.totalPrice = 0 WHERE o.orderId=:orderId")
     void resetOrderPrice(int orderId);
 
     @Modifying

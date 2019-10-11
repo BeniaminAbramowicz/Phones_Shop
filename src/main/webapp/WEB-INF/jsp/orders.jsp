@@ -27,7 +27,12 @@
             <th scope="col">Order status</th>
             <th scope="col">Total price</th>
             <th scope="col">Order details</th>
+            <sec:authorize access="hasRole('ROLE_USER')">
             <th scope="col">Close Order</th>
+            </sec:authorize>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <th scope="col">Change status</th>
+            </sec:authorize>
         </tr>
         </thead>
         <tbody>
@@ -42,12 +47,26 @@
                 <button type="submit" class="btn btn-success">Items list</button>
             </form>
             </td>
+            <sec:authorize access="hasRole('ROLE_USER')">
             <td>
             <form method="post" action="/orders/closeorder"  onsubmit="return confirmClosing(this, '${pageContext.request.contextPath}/orders/closeorder')">
                 <input type="hidden" name="orderId" value="${order.orderId}">
-                <button type="submit" class="btn btn-danger" id="closeorder" style="display:block;">Close and send order</button>
+                <button type="submit" class="btn btn-danger" style="display:block;">Close and send order</button>
             </form>
             </td>
+            </sec:authorize>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <td>
+                    <form method="post" action="/manageorders/changestatus">
+                        <input type="hidden" name="orderId" value="${order.orderId}">
+                        <select class="form-control-sm span3" name="status">
+                            <option value="${enums[0]}">${enums[0]}</option>
+                            <option value="${enums[1]}">${enums[1]}</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Change order status</button>
+                    </form>
+                </td>
+            </sec:authorize>
         </tr>
         </c:forEach>
         </tbody>

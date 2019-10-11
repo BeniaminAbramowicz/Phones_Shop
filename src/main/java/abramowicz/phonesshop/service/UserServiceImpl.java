@@ -4,8 +4,7 @@ import abramowicz.phonesshop.entities.User;
 import abramowicz.phonesshop.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("userService")
 @Transactional

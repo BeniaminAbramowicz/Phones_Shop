@@ -2,14 +2,12 @@ package abramowicz.phonesshop.service;
 
 import abramowicz.phonesshop.entities.Order;
 import abramowicz.phonesshop.entities.OrderList;
-import abramowicz.phonesshop.entities.User;
 import abramowicz.phonesshop.repositories.OrderListRepository;
 import abramowicz.phonesshop.repositories.OrderRepository;
-import abramowicz.phonesshop.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 
