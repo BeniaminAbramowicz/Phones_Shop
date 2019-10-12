@@ -26,7 +26,12 @@
             <th scope="col">Order ID</th>
             <th scope="col">Order status</th>
             <th scope="col">Total price</th>
+            <sec:authorize access="hasRole('ROLE_USER')">
             <th scope="col">Order details</th>
+            </sec:authorize>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <th scope="col">Order details</th>
+            </sec:authorize>
             <sec:authorize access="hasRole('ROLE_USER')">
             <th scope="col">Close Order</th>
             </sec:authorize>
@@ -41,12 +46,22 @@
             <td>${order.orderId}</td>
             <td style="text-transform:lowercase">${order.status}</td>
             <td>${order.totalPrice}</td>
+            <sec:authorize access="hasRole('ROLE_USER')">
             <td>
             <form method="get" action="/orders/orderdetails">
                 <input type="hidden" name="orderId" value="${order.orderId}">
                 <button type="submit" class="btn btn-success">Items list</button>
             </form>
             </td>
+            </sec:authorize>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <td>
+                    <form method="get" action="/manageorders/details">
+                        <input type="hidden" name="orderId" value="${order.orderId}">
+                        <button type="submit" class="btn btn-success">Items list</button>
+                    </form>
+                </td>
+            </sec:authorize>
             <sec:authorize access="hasRole('ROLE_USER')">
             <td>
             <form method="post" action="/orders/closeorder"  onsubmit="return confirmClosing(this, '${pageContext.request.contextPath}/orders/closeorder')">

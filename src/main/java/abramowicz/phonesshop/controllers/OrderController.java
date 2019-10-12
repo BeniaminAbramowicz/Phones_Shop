@@ -1,10 +1,7 @@
 package abramowicz.phonesshop.controllers;
 
 
-import abramowicz.phonesshop.entities.Order;
-import abramowicz.phonesshop.entities.OrderList;
-import abramowicz.phonesshop.entities.Product;
-import abramowicz.phonesshop.entities.User;
+import abramowicz.phonesshop.entities.*;
 import abramowicz.phonesshop.entities.enums.OrderStatus;
 import abramowicz.phonesshop.service.OrderService;
 import abramowicz.phonesshop.service.ProductService;

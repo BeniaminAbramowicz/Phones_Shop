@@ -30,7 +30,12 @@
             <th scope="col">Product Name</th>
             <th scope="col">Quantity</th>
             <th scope="col">Price</th>
+            <sec:authorize access="hasRole('ROLE_USER')">
             <th scope="col">Remove Items</th>
+            </sec:authorize>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <th scope="col">Remove Items</th>
+            </sec:authorize>
         </tr>
         </thead>
         <tbody>
@@ -39,15 +44,26 @@
                 <td>${orderList.product.name}</td>
                 <td>${orderList.quantity}</td>
                 <td>${orderList.price}</td>
+                <sec:authorize access="hasRole('ROLE_USER')">
                 <td>
                     <form method="post" action="/orders/orderdetails/deleteitem" onsubmit="return confirmClosing(this, '${pageContext.request.contextPath}/orders/orderdetails/deleteitem')">
                         <input type="hidden" name="productId" value="${orderList.product.productId}">
                         <input type="hidden" name="orderListId" value="${orderList.orderListId}">
-                        <input type="hidden" name="orderId" value="${orderList.order.orderId}">
-                        <input type="number" name="quantity" min="0" id="quantity">
+                        <input type="number" name="quantity" min="0">
                         <button type="submit" class="btn btn-danger">Remove items</button>
                     </form>
                 </td>
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <td>
+                        <form method="post" action="/manageorders/details/deleteitem" onsubmit="return confirmRemoval(this, '${pageContext.request.contextPath}/manageorders/details/deleteitem')">
+                            <input type="hidden" name="productId" value="${orderList.product.productId}">
+                            <input type="hidden" name="orderListId" value="${orderList.orderListId}">
+                            <input type="number" name="quantity" min="0">
+                            <button type="submit" class="btn btn-danger">Remove items</button>
+                        </form>
+                    </td>
+                </sec:authorize>
             </tr>
         </c:forEach>
         </tbody>
@@ -82,7 +98,7 @@
         }
     })
 
-    function confirmClosing(closeForm, closeUrl){
+    function confirmRemoval(closeForm, closeUrl){
         if (confirm("Are you sure about removing these items from order?")){
             closeForm.action = closeUrl;
             return true;
