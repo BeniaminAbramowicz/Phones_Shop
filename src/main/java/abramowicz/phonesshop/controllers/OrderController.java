@@ -52,6 +52,7 @@ public class OrderController {
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
         List<Order> orders = orderService.displayOrders(user.getUserId());
+        OrderStatus status = orderService.getOrderById(orderId).getStatus();
         model.addAttribute("user", user);
         if(OtherUtils.userHasOrder(orders, orderId) == false){
             redirectAttributes.addFlashAttribute("error", "Order with given id doesn't exists");
@@ -59,6 +60,7 @@ public class OrderController {
         } else {
             List<OrderList> orderListItems = orderService.displayOrderList(orderId);
             model.addAttribute("orderListItems", orderListItems);
+            model.addAttribute("status", status);
             return "orderlist";
         }
     }

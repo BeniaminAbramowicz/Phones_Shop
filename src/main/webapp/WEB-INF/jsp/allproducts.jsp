@@ -15,7 +15,7 @@
         <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
-    <div class="alert alert-danger" id="error" style="align:center;margin:10px;display:none;" role="alert">
+    <div class="alert alert-danger" id="error" style="align:center;margin:10px;display:none;font-size:18px;" role="alert">
     <c:if test="${not empty error}">
         <p id="errtext">${error}</p>
     </c:if>

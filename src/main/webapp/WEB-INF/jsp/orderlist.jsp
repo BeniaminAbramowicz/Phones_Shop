@@ -16,10 +16,13 @@
         <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
-    <div class="alert alert-danger" id="error"style="align:center;margin:10px;display:none" role="alert">
+    <div class="alert alert-danger" id="error"style="align:center;margin:10px;font-size:18px;display:none" role="alert">
         <c:if test="${not empty error}">
             <p id="errtext">${error}</p>
         </c:if>
+    </div>
+    <div class="alert alert-info" id="error"style="align:center;margin:10px;font-size:18px;" role="alert">
+        <p id="orderinfo" style="visibility:hidden">${status}</p>
     </div>
     <table class="table">
         <thead>
@@ -57,6 +60,25 @@
         var err = document.getElementById("errtext");
         if(err !== null){
             document.getElementById("error").style.display = "block";
+        }
+        var info = document.getElementById("orderinfo");
+        switch(info.innerHTML){
+            case 'OPEN':
+                info.innerHTML = "This order is open";
+                info.style.visibility = "visible";
+                break;
+            case 'CLOSED':
+                info.innerHTML = "This order is closed (No changes can be made)";
+                info.style.visibility = "visible";
+                break;
+            case 'REALIZED':
+                info.innerHTML = "This order has been realized (No changes can be made)";
+                info.style.visibility = "visible";
+                break;
+            case 'CANCELLED':
+                info.innerHTML = "This order has been cancelled (No changes can be made)";
+                info.style.visibility = "visible";
+                break;
         }
     })
 
