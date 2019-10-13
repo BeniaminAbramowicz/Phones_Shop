@@ -6,16 +6,18 @@
 <html lang="en">
 <head>
     <%@include file="/WEB-INF/include/header.app" %>
+    <script type="text/javascript" src="/resources/scripts/basicerror.js"></script>
+    <script type="text/javascript" src="/resources/scripts/orderpage.js"></script>
     <title>Home Page</title>
 </head>
 <body>
 <wrapper class="d-flex flex-column">
 <main class="container-fluid py-3 flex-fill">
     <div class="logo">
-        <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
+        <img src="/resources/img/logo.jpg" id="logoimg"/>
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
-    <div class="alert alert-danger" id="error" style="align:center;margin:10px;font-size:18px;display:none;" role="alert">
+    <div class="alert alert-danger" id="error" role="alert">
         <c:if test="${not empty error}">
             <p id="errtext">${error}</p>
         </c:if>
@@ -44,7 +46,7 @@
         <c:forEach var="order" items="${orders}">
         <tr>
             <td>${order.orderId}</td>
-            <td style="text-transform:lowercase">${order.status}</td>
+            <td class="lowercase">${order.status}</td>
             <td>${order.totalPrice}</td>
             <sec:authorize access="hasRole('ROLE_USER')">
             <td>
@@ -66,13 +68,13 @@
             <td>
             <form method="post" action="/orders/closeorder"  onsubmit="return confirmClosing(this, '${pageContext.request.contextPath}/orders/closeorder')">
                 <input type="hidden" name="orderId" value="${order.orderId}">
-                <button type="submit" class="btn btn-danger" style="display:none;">Close and send order</button>
+                <button type="submit" class="btn btn-danger" id="closeorder">Close and send order</button>
             </form>
             </td>
             </sec:authorize>
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <td>
-                    <form method="post" action="/manageorders/changestatus" class="statusform" style="display:none;">
+                    <form method="post" action="/manageorders/changestatus" class="statusform">
                         <input type="hidden" name="orderId" value="${order.orderId}">
                         <select class="form-control-sm span3" name="status">
                             <option value="${enums[0]}">${enums[0]}</option>
@@ -89,42 +91,5 @@
 </main>
     <%@include file="/WEB-INF/include/footer.app" %>
 </wrapper>
-<script>
-    document.addEventListener("DOMContentLoaded", function(){
-        var err = document.getElementById("errtext");
-        if(err !== null){
-            document.getElementById("error").style.display = "block";
-        }
-        if(window.location.href === "http://localhost:8080/orders") {
-            var table = document.getElementById("order");
-            var tbody = table.getElementsByTagName("tbody");
-            var tr = tbody[0].getElementsByTagName("tr");
-            var buttons = tbody[0].getElementsByClassName("btn btn-danger");
-            for (var i = 0; i < tr.length; i++) {
-                if (tr[i].getElementsByTagName("td")[1].innerHTML === "OPEN") {
-                    buttons[i].style.display = "block";
-                }
-            }
-        } else if(window.location.href === "http://localhost:8080/manageorders"){
-            var tablead = document.getElementById("order");
-            var tbodyad = tablead.getElementsByTagName("tbody");
-            var trad = tbodyad[0].getElementsByTagName("tr");
-            var changeform = tbodyad[0].getElementsByClassName("statusform");
-            for (var i = 0; i < trad.length; i++) {
-                if (trad[i].getElementsByTagName("td")[1].innerHTML === "CLOSED") {
-                    changeform[i].style.display = "inline-block";
-                }
-            }
-        }
-    })
-
-    function confirmClosing(closeForm, closeUrl){
-        if (confirm("You can't make any changes to order after closing it. Are you sure?")){
-            closeForm.action = closeUrl;
-            return true;
-        }
-        return false;
-    }
-</script>
 </body>
 </html>

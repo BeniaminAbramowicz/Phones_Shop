@@ -6,16 +6,17 @@
 <html lang="en">
 <head>
     <%@include file="/WEB-INF/include/header.app" %>
+    <script type="text/javascript" src="/resources/scripts/basicerror.js"></script>
     <title>Products list</title>
 </head>
 <body>
 <wrapper class="d-flex flex-column">
 <main class="container-fluid py-3 flex-fill">
     <div class="logo">
-        <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
+        <img src="/resources/img/logo.jpg" id="logoimg"/>
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
-    <div class="alert alert-danger" id="error" style="align:center;margin:10px;display:none;font-size:18px;" role="alert">
+    <div class="alert alert-danger" id="error" role="alert">
     <c:if test="${not empty error}">
         <p id="errtext">${error}</p>
     </c:if>
@@ -65,13 +66,5 @@
 </main>
     <%@include file="/WEB-INF/include/footer.app" %>
 </wrapper>
-<script>
-    document.addEventListener("DOMContentLoaded", function(){
-        var err = document.getElementById("errtext");
-        if(err !== null){
-            document.getElementById("error").style.display = "block";
-        }
-    })
-</script>
 </body>
 </html>

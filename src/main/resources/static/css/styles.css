@@ -1,4 +1,4 @@
-body, wrapper {
+body, wrapper{
     min-height: 100vh;
     font-family: sans-serif;
     font-weight: normal;
@@ -7,4 +7,34 @@ body, wrapper {
 
 main {
     flex: 1;
+}
+
+#logoimg{
+    max-width:100%;
+    height:200px;
+}
+
+#info{
+    text-align:center;
+    margin:10px;
+    font-size:18px;
+}
+
+#error{
+    text-align:center;
+    margin:10px;
+    font-size:18px;
+    display:none;
+}
+
+.lowercase{
+    text-transform:lowercase;
+}
+
+#closeorder{
+    display:none;
+}
+
+.statusform{
+    display:none;
 }

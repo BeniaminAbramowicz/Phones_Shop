@@ -6,23 +6,24 @@
 <html lang="en">
 <head>
     <%@include file="/WEB-INF/include/header.app" %>
+    <script type="text/javascript" src="/resources/scripts/basicerror.js"></script>
+    <script type="text/javascript" src="/resources/scripts/orderlistpage.js"></script>
     <title>Home Page</title>
 </head>
 <body>
 <wrapper class="d-flex flex-column">
 <main class="container-fluid py-3 flex-fill">
-    <input type="hidden" name="userId" value="${user.userId}">
     <div class="logo">
-        <img src="/resources/img/logo.jpg" max-width="100%" height="auto" style = "display:block; margin-left:auto; margin-right:auto;" />
+        <img src="/resources/img/logo.jpg" id="logoimg"/>
     </div>
     <%@include file="/WEB-INF/include/navbar.app" %>
-    <div class="alert alert-danger" id="error"style="align:center;margin:10px;font-size:18px;display:none" role="alert">
+    <div class="alert alert-danger" id="error" role="alert">
         <c:if test="${not empty error}">
             <p id="errtext">${error}</p>
         </c:if>
     </div>
-    <div class="alert alert-info" id="error"style="align:center;margin:10px;font-size:18px;" role="alert">
-        <p id="orderinfo" style="visibility:hidden">${status}</p>
+    <div class="alert alert-info" id="info" role="alert">
+        <p id="orderinfo">${status}</p>
     </div>
     <table class="table">
         <thead>
@@ -46,7 +47,7 @@
                 <td>${orderList.price}</td>
                 <sec:authorize access="hasRole('ROLE_USER')">
                 <td>
-                    <form method="post" action="/orders/orderdetails/deleteitem" onsubmit="return confirmClosing(this, '${pageContext.request.contextPath}/orders/orderdetails/deleteitem')">
+                    <form method="post" action="/orders/orderdetails/deleteitem" onsubmit="return confirmRemoval(this, '${pageContext.request.contextPath}/orders/orderdetails/deleteitem')">
                         <input type="hidden" name="productId" value="${orderList.product.productId}">
                         <input type="hidden" name="orderListId" value="${orderList.orderListId}">
                         <input type="number" name="quantity" min="0">
@@ -71,40 +72,5 @@
 </main>
     <%@include file="/WEB-INF/include/footer.app" %>
 </wrapper>
-<script>
-    document.addEventListener("DOMContentLoaded", function(){
-        var err = document.getElementById("errtext");
-        if(err !== null){
-            document.getElementById("error").style.display = "block";
-        }
-        var info = document.getElementById("orderinfo");
-        switch(info.innerHTML){
-            case 'OPEN':
-                info.innerHTML = "This order is open";
-                info.style.visibility = "visible";
-                break;
-            case 'CLOSED':
-                info.innerHTML = "This order is closed (No changes can be made)";
-                info.style.visibility = "visible";
-                break;
-            case 'REALIZED':
-                info.innerHTML = "This order has been realized (No changes can be made)";
-                info.style.visibility = "visible";
-                break;
-            case 'CANCELLED':
-                info.innerHTML = "This order has been cancelled (No changes can be made)";
-                info.style.visibility = "visible";
-                break;
-        }
-    })
-
-    function confirmRemoval(closeForm, closeUrl){
-        if (confirm("Are you sure about removing these items from order?")){
-            closeForm.action = closeUrl;
-            return true;
-        }
-        return false;
-    }
-</script>
 </body>
 </html>
