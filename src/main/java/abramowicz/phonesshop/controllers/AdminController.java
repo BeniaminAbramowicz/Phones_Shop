@@ -58,7 +58,15 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("error", "Realized and cancelled orders can't have their status changed");
             return "redirect:/manageorders";
         } else{
-            adminService.changeOrderStatus(orderId, status);
+            if(status == OrderStatus.CANCELLED){
+                adminService.changeOrderStatus(orderId, status);
+                List<OrderList> orderListItems = orderService.displayOrderList(orderId);
+                for(OrderList orderItem : orderListItems){
+                    productService.addQuantity(orderItem.getQuantity(), orderItem.getProduct().getProductId());
+                }
+            } else if(status == OrderStatus.REALIZED) {
+                adminService.changeOrderStatus(orderId, status);
+            }
             return "redirect:/manageorders";
         }
     }

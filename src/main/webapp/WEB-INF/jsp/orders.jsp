@@ -7,7 +7,7 @@
 <head>
     <%@include file="/WEB-INF/include/header.app" %>
     <script type="text/javascript" src="/resources/scripts/basicerror.js"></script>
-    <script type="text/javascript" src="/resources/scripts/orderpage.js"></script>
+    <script type="text/javascript" src="/resources/scripts/orderspage.js"></script>
     <title>Home Page</title>
 </head>
 <body>
