@@ -19,7 +19,7 @@ public interface OrderListRepository extends JpaRepository<OrderList, Integer> {
 
     OrderList getOrderListByOrderListId(int orderListId);
 
-    OrderList getOrderListByProduct_ProductId(int productId);
+    OrderList getOrderListByProduct_ProductIdAndOrder_OrderId(int productId, int orderId);
 
     void deleteOrderListByOrderListId(int orderListId);
 

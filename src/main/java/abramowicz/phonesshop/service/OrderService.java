@@ -20,7 +20,7 @@ public interface OrderService {
     void subItemsInOrder(int quantity, int orderListId);
     void subPriceInOrder(BigDecimal price, int orderListId);
     void addExistingItem(BigDecimal price, int quantity, int orderListId);
-    OrderList getOrderListByProductId(int productId);
+    OrderList getOrderListByProductIdOrderId(int productId, int orderId);
     void closeOrder(int orderId);
     void resetOrderPrice(int orderId);
 }

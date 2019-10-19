@@ -81,8 +81,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderList getOrderListByProductId(int productId) {
-        return orderListRepository.getOrderListByProduct_ProductId(productId);
+    public OrderList getOrderListByProductIdOrderId(int productId, int orderId) {
+        return orderListRepository.getOrderListByProduct_ProductIdAndOrder_OrderId(productId, orderId);
     }
 
     @Override

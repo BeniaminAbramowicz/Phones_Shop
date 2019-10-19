@@ -6,7 +6,6 @@ import abramowicz.phonesshop.entities.enums.OrderStatus;
 import abramowicz.phonesshop.service.OrderService;
 import abramowicz.phonesshop.service.ProductService;
 import abramowicz.phonesshop.service.UserService;
-import abramowicz.phonesshop.utilities.OtherUtils;
 import abramowicz.phonesshop.utilities.UserUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -49,9 +48,15 @@ public class OrderController {
         String username = UserUtilities.getLoggedUsername();
         User user = userService.getUserByEmail(username);
         List<Order> orders = orderService.displayOrders(user.getUserId());
-        OrderStatus status = orderService.getOrderById(orderId).getStatus();
+        OrderStatus status;
+        try{
+            status = orderService.getOrderById(orderId).getStatus();
+        } catch(Exception e){
+            redirectAttributes.addFlashAttribute("error", "Order with given id doesn't exists");
+            return "redirect:/orders";
+        }
         model.addAttribute("user", user);
-        if(OtherUtils.userHasOrder(orders, orderId) == false){
+        if(orders.stream().noneMatch(o -> o.getOrderId() == orderId)){
             redirectAttributes.addFlashAttribute("error", "Order with given id doesn't exists");
             return "redirect:/orders";
         } else {
@@ -72,13 +77,13 @@ public class OrderController {
         Order order = orderService.getOpenOrder(email);
         List<OrderList> orderListItems = orderService.displayOrderList(order.getOrderId());
         int prQuantity = productService.getProduct(productId).getItemsNumber();
-        if((OtherUtils.containsItem(orderListItems, productId)) && (prQuantity >= quantity) ){
+        if((orderListItems.stream().anyMatch(o -> o.getProduct().getName().contains(productService.getProduct(productId).getName()))) && (prQuantity >= quantity) ){
             BigDecimal summedPrice = price.multiply(new BigDecimal(quantity));
-            OrderList orderList = orderService.getOrderListByProductId(productId);
+            OrderList orderList = orderService.getOrderListByProductIdOrderId(productId, order.getOrderId());
             orderService.addExistingItem(summedPrice, quantity, orderList.getOrderListId());
             productService.subQuantity(quantity, productId);
             orderService.sumTotalPrice(order.getOrderId());
-        } else if((OtherUtils.containsItem(orderListItems, productId) == false) && (prQuantity >= quantity)){
+        } else if((orderListItems.stream().noneMatch(o -> o.getProduct().getName().contains(productService.getProduct(productId).getName()))) && (prQuantity >= quantity)){
             BigDecimal pricem = price.multiply(new BigDecimal(quantity));
             OrderList orderList = new OrderList();
             orderList.setOrder(orderService.getOrderById(order.getOrderId()));
@@ -93,6 +98,7 @@ public class OrderController {
         }
         return "redirect:/products/allproducts";
     }
+
     @PostMapping(value = "/orders/orderdetails/deleteitem")
     public String deleteItem(@Param("orderListId") int orderListId, int quantity, @Param("productId") int productId, RedirectAttributes redirectAttributes){
         OrderList orderList = orderService.getOrderListById(orderListId);
